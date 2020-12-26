@@ -5,13 +5,13 @@
       <input
         type="text"
         name="usermail"
-        v-model="input.usermail"
+        v-model="loginForm.useremail"
         placeholder="write proper email"
       />
       <input
         type="password"
         name="password"
-        v-model="input.password"
+        v-model="loginForm.password"
         placeholder="password"
       />
       <button type="button" @click="login()">Login/Register</button>
@@ -20,19 +20,31 @@
   </div>
 </template>
 <script>
+import { authService } from "@/firebase";
+
 export default {
   name: "Login",
   data() {
     return {
-      input: {
-        usermail: "",
+      loginForm: {
+        useremail: "",
         password: ""
       }
     };
   },
   methods: {
-    login() {
-      console.log("login button clicked");
+    async login() {
+      event.preventDefault();
+      try {
+        let data;
+        data = await authService.createUserWithEmailAndPassword(
+          this.loginForm.useremail,
+          this.loginForm.password
+        );
+        console.log("data", data);
+      } catch (err) {
+        console.log(err);
+      }
     },
     showModal() {
       console.log("social login clicked");
