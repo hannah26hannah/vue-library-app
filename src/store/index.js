@@ -4,8 +4,25 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {}
+  state: {
+    user: null,
+    token: ""
+  },
+  mutations: {
+    setUser: (state, user) => {
+      state.user = user;
+    },
+    setToken: (state, token) => {
+      state.token = token;
+    }
+  },
+  actions: {
+    getUser({ commit }, user) {
+      commit("setUser", user);
+      if (!user) return;
+      user.getIdToken().then(token => {
+        commit("setToken", token);
+      });
+    }
+  }
 });
