@@ -6,6 +6,7 @@
       <router-link to="/login">{{
         isLoggedIn ? "My Page" : "Login"
       }}</router-link>
+      |
       <button v-if="isLoggedIn" @click="logout">Logout</button>
     </div>
     <router-view />
@@ -21,7 +22,7 @@ export default {
       isLoggedIn: false
     };
   },
-  mounted() {
+  created() {
     this.init();
   },
   methods: {
@@ -30,6 +31,7 @@ export default {
       if (user != null) {
         this.isLoggedIn = true;
       }
+      console.log("user", user);
     },
     async logout() {
       try {
