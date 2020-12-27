@@ -27,32 +27,48 @@
     </section>
     <section v-else>
       <h1>
-        <span @click="toggleMode" :class="{ currentStatus: !isLoginMode }"
-          >Sign In</span
-        >
-        Or
         <span @click="toggleMode" :class="{ currentStatus: isLoginMode }"
           >Log in</span
         >
+        Or
+        <span @click="toggleMode" :class="{ currentStatus: !isLoginMode }"
+          >Sign In</span
+        >
       </h1>
-      <form action="" name="signInForm" id="signIn">
-        <input
-          type="text"
-          name="usermail"
-          v-model="loginForm.useremail"
-          placeholder="write proper email"
-        />
-        <input
-          type="password"
-          name="password"
-          v-model="loginForm.password"
-          placeholder="password"
-        />
-        <button type="button" @click="signIn()">
-          {{ isLoginMode ? "Log In" : "Sign In" }}
-        </button>
-        <button type="button" @click="showModal()">Or Connect With</button>
-      </form>
+
+      <el-form
+        ref="signIn"
+        :model="loginForm"
+        id="signIn"
+        label-width="100px"
+        label-position="left"
+      >
+        <el-form-item label="user email">
+          <el-input
+            type="email"
+            name="useremail"
+            v-model="loginForm.useremail"
+            placeholder="write proper email"
+            autocomplete="on"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="password">
+          <el-input
+            type="password"
+            name="password"
+            v-model="loginForm.password"
+            placeholder="password"
+          ></el-input>
+        </el-form-item>
+        <div class="btnBox">
+          <el-button type="primary" @click="signIn()">
+            {{ isLoginMode ? "Log In" : "Sign In" }}
+          </el-button>
+          <el-button type="primary" plain @click="showModal()"
+            >Or Connect With</el-button
+          >
+        </div>
+      </el-form>
     </section>
   </div>
 </template>
@@ -65,7 +81,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      isLoginMode: false,
+      isLoginMode: true,
       loginForm: {
         useremail: "",
         password: ""
@@ -94,15 +110,26 @@ export default {
             this.loginForm.useremail,
             this.loginForm.password
           );
+          this.$message({
+            message: "성공적으로 가입되었습니다.",
+            type: "success"
+          });
         } else {
           await authService.signInWithEmailAndPassword(
             this.loginForm.useremail,
             this.loginForm.password
           );
-          this.$router.push("/");
+          this.$message({
+            message: "성공적으로 로그인되었습니다.",
+            type: "success"
+          });
         }
+        this.$router.push("/");
       } catch (err) {
-        console.log(err);
+        this.$message({
+          message: `Oops! ${err}`,
+          type: "error"
+        });
       }
     },
     showModal() {
@@ -119,11 +146,10 @@ export default {
   display: flex;
   flex-direction: column;
 
-  input,
-  button {
-    margin-bottom: 10px;
-    padding: 5px;
-    text-align: center;
+  .btnBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
   }
 }
 

@@ -1,32 +1,21 @@
 <template>
-  <div class="home">Hello, {{ isLoggedIn ? useremail : "Visitor" }}!</div>
+  <div class="home">
+    <h1>Hello, {{ isMember ? "Member" : "Visitor" }}!</h1>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Home",
   data() {
-    return {
-      useremail: ""
-    };
-  },
-  mounted() {
-    this.init();
+    return {};
   },
   computed: {
-    isLoggedIn() {
-      if (sessionStorage.getItem("user")) return true;
-      else return false;
-    }
-  },
-  methods: {
-    init() {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      if (user != null) {
-        this.useremail = user.email;
-      } else {
-        this.useremail = "test@test.com";
-      }
+    ...mapGetters(["isLoggedIn"]),
+    isMember() {
+      return this.isLoggedIn;
     }
   }
 };

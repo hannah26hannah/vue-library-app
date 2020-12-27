@@ -1,44 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">{{
-        isLoggedIn ? "My Page" : "Login"
-      }}</router-link>
-      |
-      <button v-if="isLoggedIn" @click="logout">Logout</button>
-    </div>
+    <el-menu
+      :default-active="activeIndex"
+      class="el-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <el-menu-item index="1">
+        <router-link to="/">Home</router-link>
+      </el-menu-item>
+      <el-menu-item index="2">
+        <router-link to="/about">About</router-link>
+      </el-menu-item>
+      <el-menu-item index="3" v-if="isLoginShow">
+        <router-link to="/login">Login</router-link>
+      </el-menu-item>
+      <el-menu-item index="4" v-else @click="logout">Logout</el-menu-item>
+    </el-menu>
+
     <router-view />
   </div>
 </template>
 
 <script>
 import { authService } from "@/firebase";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      isLoggedIn: false
+      activeIndex: "1"
     };
   },
-  created() {
-    this.init();
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+    isLoginShow() {
+      return !this.isLoggedIn;
+    }
   },
   methods: {
-    init() {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      if (user != null) {
-        this.isLoggedIn = true;
-      }
-      console.log("user", user);
-    },
     async logout() {
       try {
         await authService.signOut();
+        this.$message({
+          message: "정상적으로 로그아웃되었습니다.",
+          type: "success"
+        });
         this.$router.push("/");
       } catch (err) {
-        console.log(err);
+        this.$message({
+          message: `Oops! ${err}`,
+          type: "error"
+        });
       }
     }
   }
@@ -52,6 +67,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  .el-menu-demo {
+    display: flex;
+    justify-content: flex-end;
+  }
+  a {
+    text-decoration: none;
+  }
 }
 
 #nav {
