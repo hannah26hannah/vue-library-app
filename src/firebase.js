@@ -1,5 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
+import "firebase/storage";
 import store from "./store";
 
 const firebaseConfig = {
@@ -16,8 +18,11 @@ const firebaseConfig = {
 export default firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
+export const dbService = firebase.firestore();
+export const storageService = firebase.storage();
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("getUser", user);
-  sessionStorage.setItem("user", JSON.stringify(user));
+  // sessionStorage.setItem("user", JSON.stringify(user));
+  // vue-persistedstate plugin will save current state to localStorage
 });

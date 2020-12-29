@@ -4,6 +4,7 @@
       :default-active="activeIndex"
       class="el-menu-demo"
       mode="horizontal"
+      @select="handleSelect"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -14,18 +15,23 @@
       <el-menu-item index="2">
         <router-link to="/about">About</router-link>
       </el-menu-item>
-      <el-menu-item index="3" v-if="isLoginShow">
-        <router-link to="/login">
-          <font-awesome-icon
-            style="margin-right: 10px; font-size: 16px; text-align: center;"
-            icon="sign-in-alt"
-          />Login</router-link
-        >
-      </el-menu-item>
-      <el-menu-item index="4" v-else @click="logout">
-        <font-awesome-icon icon="sign-out-alt" />
-        Logout</el-menu-item
+      <router-link to="/login" v-if="isLoginShow">
+        <el-menu-item index="3">
+          <font-awesome-icon class="navIcon" icon="sign-in-alt" />Login
+        </el-menu-item></router-link
       >
+      <el-submenu index="4" v-else>
+        <template slot="title">My Page</template>
+        <router-link to="/myPage">
+          <el-menu-item index="4-1">
+            <font-awesome-icon class="navIcon" icon="user-cog" />My Page
+          </el-menu-item>
+        </router-link>
+        <el-menu-item index="4-2" @click="logout"
+          ><font-awesome-icon icon="sign-out-alt" class="navIcon" />
+          Logout</el-menu-item
+        >
+      </el-submenu>
     </el-menu>
 
     <router-view />
@@ -60,6 +66,9 @@ export default {
       } else if (!activeIndex && currentPath == "/login") {
         this.activeIndex = "3";
       } else this.activeIndex = "1";
+    },
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
     },
     async logout() {
       try {
@@ -107,5 +116,11 @@ export default {
       color: #42b983;
     }
   }
+}
+
+.navIcon {
+  margin-right: 10px;
+  font-size: 16px;
+  text-align: center;
 }
 </style>

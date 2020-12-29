@@ -11,17 +11,9 @@ export default new Vuex.Store({
     isLoggedIn: false
   },
   getters: {
-    // isLoggedIn: state => {
-    //   const user = JSON.parse(localStorage.getItem("vuex")).user;
-    //   if (user != null) {
-    //     state.isLoggedIn = true;
-    //     return state.isLoggedIn;
-    //   } else if (user == null) {
-    //     state.isLoggedIn = false;
-    //   }
-    //   return state.isLoggedIn;
-    // }
-    isLoggedIn: state => state.isLoggedIn
+    isLoggedIn: state => state.isLoggedIn,
+    user: state => state.user,
+    userEmail: state => state.user.email
   },
   plugins: [createPersistedState()],
   mutations: {
@@ -33,6 +25,9 @@ export default new Vuex.Store({
     },
     setStatus: (state, isLoggedIn) => {
       state.isLoggedIn = isLoggedIn;
+    },
+    updateUser: (state, user) => {
+      state.user.displayName = user.displayName;
     }
   },
   actions: {
@@ -46,6 +41,9 @@ export default new Vuex.Store({
       // user.getIdToken().then(token => {
       //   commit("setToken", token);
       // });
+    },
+    updateUser({ commit }, user) {
+      commit("updateUser", user);
     }
   }
 });

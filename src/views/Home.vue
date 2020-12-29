@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Hello, {{ isMember ? "Member" : "Visitor" }}!</h1>
+    <h1>어서오세요, {{ isMember ? userName : "Visitor" }}님!</h1>
   </div>
 </template>
 
@@ -13,9 +13,12 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "user"]),
     isMember() {
       return this.isLoggedIn;
+    },
+    userName() {
+      return this.user.displayName;
     }
   }
 };

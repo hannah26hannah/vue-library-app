@@ -113,10 +113,7 @@ export default {
         }
         this.$router.push({ path: "/", params: { activeIndex: "1" } });
       } catch (err) {
-        this.$message({
-          message: `Oops! ${err}`,
-          type: "error"
-        });
+        this.$message.error(`Oops! ${err}`);
       }
     },
     async socialLogin(val) {
@@ -138,10 +135,7 @@ export default {
           this.$router.push({ path: "/", params: { activeIndex: "1" } });
         }
       } catch (err) {
-        this.$message({
-          message: `Oops! ${err}`,
-          type: "error"
-        });
+        this.$message.error(`Oops! ${err}`);
       }
     }
   }
