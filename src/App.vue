@@ -48,7 +48,6 @@ export default {
           message: "정상적으로 로그아웃되었습니다.",
           type: "success"
         });
-        this.$router.push("/");
       } catch (err) {
         this.$message({
           message: `Oops! ${err}`,

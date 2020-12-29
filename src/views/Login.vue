@@ -1,31 +1,6 @@
 <template>
   <div>
-    <section v-if="isLoggedIn">
-      <h1>
-        My Page
-        <form name="userForm" id="userInfo">
-          <div>
-            <label for="username">Name :</label>
-            <input
-              type="text"
-              name="username"
-              v-model="this.$store.state.user.displayName"
-              placeholder="update your name to use"
-            />
-          </div>
-          <div>
-            <label for="useremail">Email :</label>
-            <input
-              type="text"
-              name="useremail"
-              v-model="this.$store.state.user.email"
-              readonly
-            />
-          </div>
-        </form>
-      </h1>
-    </section>
-    <section v-else>
+    <section v-if="isLoginShow">
       <h1>
         <span @click="toggleMode" :class="{ currentStatus: isLoginMode }"
           >Log in</span
@@ -70,17 +45,41 @@
         </div>
       </el-form>
     </section>
+    <section v-else>
+      <h1>
+        My Page
+        <form name="userForm" id="userInfo">
+          <!-- <div>
+            <label for="username">Name :</label>
+            <input
+              type="text"
+              name="username"
+              v-model="this.$store.state.user.displayName"
+              placeholder="update your name to use"
+            />
+          </div> -->
+          <!-- <div>
+            <label for="useremail">Email :</label>
+            <input
+              type="text"
+              name="useremail"
+              v-model="this.$store.state.user.email"
+              readonly
+            />
+          </div> -->
+        </form>
+      </h1>
+    </section>
   </div>
 </template>
 <script>
 import { authService } from "@/firebase";
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Login",
   data() {
     return {
-      isLoggedIn: false,
       isLoginMode: true,
       loginForm: {
         useremail: "",
@@ -88,16 +87,13 @@ export default {
       }
     };
   },
-  mounted() {
-    this.init();
+  computed: {
+    ...mapGetters(["isLoggedIn"]),
+    isLoginShow() {
+      return !this.isLoggedIn;
+    }
   },
   methods: {
-    init() {
-      const user = JSON.parse(sessionStorage.getItem("user"));
-      if (user != null) {
-        this.isLoggedIn = true;
-      }
-    },
     ...mapMutations(["setUserInfo"]),
     ...mapActions(["setUserInfo"]),
     toggleMode() {
