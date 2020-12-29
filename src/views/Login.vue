@@ -36,29 +36,30 @@
           ></el-input>
         </el-form-item>
         <div class="btnBox">
-          <el-button type="primary" @click="signIn()">
+          <el-button
+            type="primary"
+            @click="signIn()"
+            style="margin-right: 10px;"
+          >
             {{ isLoginMode ? "Log In" : "Sign In" }}
           </el-button>
           <el-popover
-            style="margin-left: 10px;"
             placement="bottom"
             title="Social Login"
             width="200"
             trigger="click"
           >
-            <el-button
-              type="primary"
-              plain
-              icon="el-icon-s-promotion"
-              @click="socialLogin('google')"
-              >Login With Google</el-button
+            <el-button type="primary" plain @click="socialLogin('google')"
+              ><font-awesome-icon :icon="['fab', 'google']" /> Login With
+              Google</el-button
             >
             <el-button
               type="primary"
               plain
-              icon="el-icon-s-promotion"
               @click="socialLogin('github')"
-              >Login With Github</el-button
+              class="smallBtn"
+              ><font-awesome-icon :icon="['fab', 'github']" /> Login With
+              Github</el-button
             >
             <el-button slot="reference">Or Connect With</el-button>
           </el-popover>
@@ -164,5 +165,9 @@ export default {
 .currentStatus {
   color: lightcoral;
   font-style: italic;
+}
+
+.smallBtn {
+  margin: 20px 0 0 0px;
 }
 </style>

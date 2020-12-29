@@ -15,9 +15,17 @@
         <router-link to="/about">About</router-link>
       </el-menu-item>
       <el-menu-item index="3" v-if="isLoginShow">
-        <router-link to="/login">Login</router-link>
+        <router-link to="/login">
+          <font-awesome-icon
+            style="margin-right: 10px; font-size: 16px; text-align: center;"
+            icon="sign-in-alt"
+          />Login</router-link
+        >
       </el-menu-item>
-      <el-menu-item index="4" v-else @click="logout">Logout</el-menu-item>
+      <el-menu-item index="4" v-else @click="logout">
+        <font-awesome-icon icon="sign-out-alt" />
+        Logout</el-menu-item
+      >
     </el-menu>
 
     <router-view />
