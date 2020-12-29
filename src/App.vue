@@ -40,7 +40,19 @@ export default {
       return !this.isLoggedIn;
     }
   },
+  created() {
+    this.init();
+  },
   methods: {
+    init() {
+      const activeIndex = this.$route.params.activeIndex;
+      const currentPath = this.$router.currentPath;
+      if (activeIndex) {
+        this.activeIndex = activeIndex;
+      } else if (!activeIndex && currentPath == "/login") {
+        this.activeIndex = "3";
+      } else this.activeIndex = "1";
+    },
     async logout() {
       try {
         await authService.signOut();

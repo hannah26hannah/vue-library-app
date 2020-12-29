@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="isLoginShow">
+    <section>
       <h1>
         <span @click="toggleMode" :class="{ currentStatus: isLoginMode }"
           >Log in</span
@@ -39,42 +39,38 @@
           <el-button type="primary" @click="signIn()">
             {{ isLoginMode ? "Log In" : "Sign In" }}
           </el-button>
-          <el-button type="primary" plain @click="showModal()"
-            >Or Connect With</el-button
+          <el-popover
+            style="margin-left: 10px;"
+            placement="bottom"
+            title="Social Login"
+            width="200"
+            trigger="click"
           >
+            <el-button
+              type="primary"
+              plain
+              icon="el-icon-s-promotion"
+              @click="socialLogin('google')"
+              >Login With Google</el-button
+            >
+            <el-button
+              type="primary"
+              plain
+              icon="el-icon-s-promotion"
+              @click="socialLogin('github')"
+              >Login With Github</el-button
+            >
+            <el-button slot="reference">Or Connect With</el-button>
+          </el-popover>
         </div>
       </el-form>
-    </section>
-    <section v-else>
-      <h1>
-        My Page
-        <form name="userForm" id="userInfo">
-          <!-- <div>
-            <label for="username">Name :</label>
-            <input
-              type="text"
-              name="username"
-              v-model="this.$store.state.user.displayName"
-              placeholder="update your name to use"
-            />
-          </div> -->
-          <!-- <div>
-            <label for="useremail">Email :</label>
-            <input
-              type="text"
-              name="useremail"
-              v-model="this.$store.state.user.email"
-              readonly
-            />
-          </div> -->
-        </form>
-      </h1>
     </section>
   </div>
 </template>
 <script>
+import { firebaseInstance } from "@/firebase";
 import { authService } from "@/firebase";
-import { mapMutations, mapActions, mapGetters } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
   name: "Login",
@@ -86,12 +82,6 @@ export default {
         password: ""
       }
     };
-  },
-  computed: {
-    ...mapGetters(["isLoggedIn"]),
-    isLoginShow() {
-      return !this.isLoggedIn;
-    }
   },
   methods: {
     ...mapMutations(["setUserInfo"]),
@@ -120,7 +110,7 @@ export default {
             type: "success"
           });
         }
-        this.$router.push("/");
+        this.$router.push({ path: "/", params: { activeIndex: "1" } });
       } catch (err) {
         this.$message({
           message: `Oops! ${err}`,
@@ -128,8 +118,30 @@ export default {
         });
       }
     },
-    showModal() {
-      console.log("social login clicked");
+    async socialLogin(val) {
+      try {
+        let provider;
+        if (val === "google") {
+          provider = new firebaseInstance.auth.GoogleAuthProvider();
+        } else if (val === "github") {
+          provider = new firebaseInstance.auth.GithubAuthProvider();
+        }
+        const data = await authService.signInWithPopup(provider);
+        console.log("operation Type :", data.operationType);
+        const method = data.operationType;
+        if (method == "signIn") {
+          this.$message({
+            message: "성공적으로 로그인되었습니다.",
+            type: "success"
+          });
+          this.$router.push({ path: "/", params: { activeIndex: "1" } });
+        }
+      } catch (err) {
+        this.$message({
+          message: `Oops! ${err}`,
+          type: "error"
+        });
+      }
     }
   }
 };
