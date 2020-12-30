@@ -1,10 +1,14 @@
 import Vue from "vue";
+
+// UI
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import "@/assets/css/common.css";
+import "@/fontAwesomeIcon.js";
+
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "@/fontAwesomeIcon.js";
 
 Vue.config.productionTip = false;
 
