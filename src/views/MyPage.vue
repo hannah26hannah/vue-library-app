@@ -11,11 +11,13 @@
       <el-form-item label="Profile Image" class="profileImg">
         <el-row :gutter="20" type="flex" justify="space-between">
           <el-col :span="12">
-            <img
+            <el-avatar
               v-if="userForm.photoURL"
+              shape="circle"
+              :size="200"
               :src="userForm.photoURL"
-              class="avatar"
-          /></el-col>
+            ></el-avatar>
+          </el-col>
           <el-col id="fileBox">
             <label for="imgFile">Upload</label>
             <input

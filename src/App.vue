@@ -15,19 +15,22 @@
       <el-menu-item index="2">
         <router-link to="/about">About</router-link>
       </el-menu-item>
+      <el-menu-item index="3">
+        <router-link to="/book">Book</router-link>
+      </el-menu-item>
       <router-link to="/login" v-if="isLoginShow">
-        <el-menu-item index="3">
+        <el-menu-item index="4">
           <font-awesome-icon class="navIcon" icon="sign-in-alt" />Login
         </el-menu-item></router-link
       >
-      <el-submenu index="4" v-else>
+      <el-submenu index="5" v-else>
         <template slot="title">My Page</template>
         <router-link to="/myPage">
-          <el-menu-item index="4-1">
+          <el-menu-item index="5-1">
             <font-awesome-icon class="navIcon" icon="user-cog" />My Page
           </el-menu-item>
         </router-link>
-        <el-menu-item index="4-2" @click="logout"
+        <el-menu-item index="5-2" @click="logout"
           ><font-awesome-icon icon="sign-out-alt" class="navIcon" />
           Logout</el-menu-item
         >
@@ -102,19 +105,6 @@ export default {
   }
   a {
     text-decoration: none;
-  }
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
   }
 }
 
