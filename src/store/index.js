@@ -12,8 +12,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLoggedIn: state => state.isLoggedIn,
-    user: state => state.user,
-    userEmail: state => state.user.email
+    user: state => state.user
   },
   plugins: [createPersistedState()],
   mutations: {

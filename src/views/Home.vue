@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <h1>어서오세요, {{ isMember ? userName : "Visitor" }}님!</h1>
+    <h1>
+      어서오세요,
+      <span style="color: #ffd04b;"
+        >{{ isMember ? userName : "Visitor" }}님!</span
+      >
+    </h1>
   </div>
 </template>
 

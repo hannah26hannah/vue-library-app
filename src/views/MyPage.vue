@@ -49,6 +49,7 @@
 </template>
 <script>
 import { authService } from "@/firebase";
+import { mapGetters } from "vuex";
 
 // storageService
 export default {
@@ -64,21 +65,18 @@ export default {
       imgFile: ""
     };
   },
+  computed: {
+    ...mapGetters(["user"])
+  },
   created() {
     this.init();
   },
   methods: {
     init() {
-      const user = authService.currentUser;
-      if (user != null) {
-        user.providerData.forEach(profile => {
-          this.userForm.displayName = profile.displayName;
-          this.userForm.email = profile.email;
-          this.userForm.photoURL = profile.photoURL;
-          this.userForm.signInProvider = profile.providerId;
-        });
+      if (this.user) {
+        Object.assign(this.userForm, this.user);
       } else {
-        console.log("유저 정보 존재하지 않음.");
+        this.$message.error("잘못된 접근입니다. 유저 정보가 없습니다.");
       }
     },
     beforeAvatarUpload(file) {
@@ -95,16 +93,17 @@ export default {
       // return isJPG && isLt2M;
     },
     async updateProfile() {
-      try {
-        const user = authService.currentUser;
-        const result = await user.updateProfile({
+      const user = authService.currentUser;
+      user
+        .updateProfile({
           displayName: this.userForm.displayName
+        })
+        .then(() => {
+          this.$message.success("성공적으로 업데이트되었습니다!");
+        })
+        .catch(err => {
+          this.$message.error(`Oops! ${err}`);
         });
-        this.$store.dispatch("updateUser", this.userForm.displayName);
-        console.log(result);
-      } catch (err) {
-        console.log(err);
-      }
     }
   }
 };

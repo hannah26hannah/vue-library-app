@@ -157,7 +157,7 @@ export default {
 }
 
 .currentStatus {
-  color: lightcoral;
+  color: #ffd04b;
   font-style: italic;
 }
 
