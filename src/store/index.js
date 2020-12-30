@@ -24,9 +24,6 @@ export default new Vuex.Store({
     },
     setStatus: (state, isLoggedIn) => {
       state.isLoggedIn = isLoggedIn;
-    },
-    updateUser: (state, user) => {
-      state.user.displayName = user.displayName;
     }
   },
   actions: {
@@ -40,9 +37,6 @@ export default new Vuex.Store({
       // user.getIdToken().then(token => {
       //   commit("setToken", token);
       // });
-    },
-    updateUser({ commit }, user) {
-      commit("updateUser", user);
     }
   }
 });

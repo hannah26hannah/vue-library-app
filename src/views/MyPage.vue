@@ -8,21 +8,24 @@
       label-width="150px"
       label-position="left"
     >
-      <el-form-item label="Profile Image">
-        <el-upload
-          class="avatar-uploader"
-          action=""
-          :before-upload="beforeAvatarUpload"
-          accept="image/*"
-          :show-file-list="false"
-        >
-          <img
-            v-if="userForm.photoURL"
-            :src="userForm.photoURL"
-            class="avatar"
-          />
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+      <el-form-item label="Profile Image" class="profileImg">
+        <el-row :gutter="20" type="flex" justify="space-between">
+          <el-col :span="12">
+            <img
+              v-if="userForm.photoURL"
+              :src="userForm.photoURL"
+              class="avatar"
+          /></el-col>
+          <el-col id="fileBox">
+            <label for="imgFile">Upload</label>
+            <input
+              type="file"
+              id="imgFile"
+              accept="image/*"
+              @change="detectFiles"
+            />
+          </el-col>
+        </el-row>
       </el-form-item>
       <el-form-item label="user email">
         <el-input
@@ -48,10 +51,9 @@
   </div>
 </template>
 <script>
-import { authService } from "@/firebase";
+import { authService, storageService } from "@/firebase";
 import { mapGetters } from "vuex";
 
-// storageService
 export default {
   name: "MyPage",
   data() {
@@ -60,9 +62,11 @@ export default {
         signInProvider: "",
         displayName: "",
         email: "",
-        photoURL: ""
+        photoURL: "",
+        uid: ""
       },
-      imgFile: ""
+      imgFile: "",
+      imgFileName: ""
     };
   },
   computed: {
@@ -79,31 +83,63 @@ export default {
         this.$message.error("잘못된 접근입니다. 유저 정보가 없습니다.");
       }
     },
-    beforeAvatarUpload(file) {
-      console.log(file);
-      // const isJPG = file.type === "image/jpeg";
-      // const isLt2M = file.size / 1024 / 1024 < 2;
-
-      // if (!isJPG) {
-      //   this.$message.error("Avatar picture must be JPG format!");
-      // }
-      // if (!isLt2M) {
-      //   this.$message.error("Avatar picture size can not exceed 2MB!");
-      // }
-      // return isJPG && isLt2M;
+    detectFiles() {
+      const theFile = event.target.files[0];
+      this.imgFileName = theFile.name;
+      const reader = new FileReader();
+      reader.onloadend = finishedEvent => {
+        const result = finishedEvent.currentTarget.result;
+        this.imgFile = result;
+        this.userForm.photoURL = result;
+      };
+      reader.readAsDataURL(theFile);
     },
     async updateProfile() {
       const user = authService.currentUser;
-      user
-        .updateProfile({
-          displayName: this.userForm.displayName
-        })
-        .then(() => {
-          this.$message.success("성공적으로 업데이트되었습니다!");
-        })
-        .catch(err => {
-          this.$message.error(`Oops! ${err}`);
-        });
+      if (this.imgFile) {
+        try {
+          const attachmentRef = storageService
+            .ref()
+            .child(`profile/${this.userForm.uid}/${this.imgFileName}`);
+          const response = await attachmentRef.putString(
+            this.imgFile,
+            "data_url"
+          );
+          const attachmentUrl = await response.ref.getDownloadURL();
+          this.userForm.photoURL = attachmentUrl;
+          user
+            .updateProfile({
+              displayName: this.userForm.displayName,
+              photoURL: this.userForm.photoURL
+            })
+            .then(() => {
+              this.$message.success(
+                "성공적으로 프로필 정보가 업로드되었습니다."
+              );
+            });
+        } catch (err) {
+          this.$message({
+            message: "프로필 사진 업로드에 실패했습니다. 다시 시도해주세요.",
+            type: "warning"
+          });
+        }
+      } else {
+        user
+          .updateProfile({
+            displayName: this.userForm.displayName
+          })
+          .then(() => {
+            this.$message.success(
+              "프로필 이름이 성공적으로 업데이트되었습니다!"
+            );
+          })
+          .catch(err => {
+            console.log(err);
+            this.$message.error(
+              `프로필 업데이트에 실패했습니다. 다시 시도해주세요.`
+            );
+          });
+      }
     }
   }
 };
@@ -114,34 +150,38 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-
-  .avatar-uploader {
-    display: flex;
-    .avatar-uploader .el-upload {
-      border: 1px dashed #d9d9d9;
-      border-radius: 6px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .avatar-uploader .el-upload:hover {
-      border-color: #409eff;
-    }
-
-    .avatar-uploader-icon {
-      font-size: 28px;
-      color: #8c939d;
-      width: 178px;
-      height: 178px;
-      line-height: 178px;
-      text-align: center;
-      background-color: lightpink;
-      border-radius: 15px;
-    }
+  .profileImg {
     .avatar {
-      width: 178px;
-      height: 178px;
+      width: 200px;
+      height: auto;
       display: block;
+    }
+    #fileBox {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      label {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: inherit;
+        line-height: normal;
+        vertical-align: middle;
+        cursor: pointer;
+        border: 1px solid #409eff;
+        border-radius: 0.25em;
+        color: #fff;
+        background-color: #409eff;
+      }
+      input[type="file"] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
     }
   }
 }
