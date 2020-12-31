@@ -1,0 +1,96 @@
+.card-container {
+  .el-timeline-item__timestamp {
+    text-align: right;
+    font-size: $font-small;
+  }
+    .card {
+        // title section
+        .form__group {
+            position: relative;
+            padding: 20px 0 0;
+            margin-top: 10px;
+            width: 100%;
+
+        }
+        // writer and genre section
+        .form__group-second {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+          
+            .form__group-second-item {
+              position: relative;
+              padding: 20px 0 0;
+              margin-top: 10px;
+              width: 50%;
+            }
+          
+            .writer {
+              margin-right: 10px;
+            }
+          }
+        // common form__field
+        .form__field {
+            font-family: inherit;
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid $form-gray;
+            outline: 0;
+            font-size: 1.05rem;
+            color: $form-gray;
+            padding: 2px 0;
+            background: transparent;
+            transition: border-color 0.2s;
+          
+            &::placeholder {
+              color: transparent;
+            }
+          
+            &:placeholder-shown ~ .form__label {
+              font-size: 1.3rem;
+              cursor: text;
+              top: 20px;
+            }
+        }
+        .form__field:focus {
+            ~ .form__label {
+              position: absolute;
+              top: 0;
+              display: block;
+              transition: 0.2s;
+              font-size: 1rem;
+              color: $form-primary;
+              font-weight: 700;
+            }
+            padding-bottom: 6px;
+            font-weight: 500;
+            border-width: 2px;
+            border-image: linear-gradient(to right, $form-primary, $form-secondary);
+            border-image-slice: 1;
+        }
+        // common form__label
+        .form__label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: $form-gray;
+          }
+
+        .form__button {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 20px;
+
+        }
+    }
+}
+
+
+
+
+
+
+
+
