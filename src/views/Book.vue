@@ -5,7 +5,12 @@
 
     <el-divider><b>Book Timeline</b></el-divider>
     <el-timeline class="timeline">
+      <section v-if="isNoData" class="isNoData">
+        <p>I know you have something to review ..soon!</p>
+        <p>Capture your amazing reviews via this button below!</p>
+      </section>
       <bookCard
+        v-else
         v-for="(book, index) in this.bookList"
         :key="index"
         :data="book"
@@ -38,7 +43,8 @@ export default {
   data() {
     return {
       isEditable: false,
-      bookList: []
+      bookList: [],
+      isNoData: false
     };
   },
   components: {
@@ -71,6 +77,10 @@ export default {
         const records = { ...doc.data(), id: doc.id };
         this.bookList.push(records);
       });
+      const size = this.bookList.length;
+      if (size === 0) {
+        this.isNoData = true;
+      }
     },
     toggleCardShow() {
       this.isEditable = !this.isEditable;
@@ -81,12 +91,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-.timeline {
-  width: 90%;
-}
-
-.review-opener {
-  font-size: 30px;
-}
-</style>
