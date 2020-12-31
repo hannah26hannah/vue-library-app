@@ -165,7 +165,7 @@ export default {
       if (this.data) {
         console.log("this.userUID", this.userUID);
         try {
-          this.cardForm.modified = parseTime(new Date(Date.now())); // 새로운 필드 추가되는지 확인할 것
+          this.cardForm.modified = parseTime(new Date(Date.now()));
           await bookRecordRef
             .doc(`${this.userUID}`)
             .collection("bookInfo")
@@ -177,7 +177,6 @@ export default {
           this.$message.error(`Oops! ${err}`);
         }
       } else {
-        // 새로운 편집기에서 작성할 때
         try {
           this.cardForm.created = parseTime(new Date(Date.now()));
           await bookRecordRef
@@ -190,12 +189,22 @@ export default {
           this.$message.error(`Oops! ${err}`);
         }
       }
-      // TODO: 기존 포스트에 따라 업데이트 or 새로 업로드 구분할 것
-      // TODO: validation add rules
     },
     onDelete() {
-      this.$emit("change-editable");
-      // 저장되지 않은 게시글을 삭제할 떄의 문구와 이미 저장된 내용을 삭제할 떄의 내용이 달라야 함.
+      if (this.data) {
+        try {
+          bookRecordRef
+            .doc(`${this.userUID}`)
+            .collection("bookInfo")
+            .doc(`${this.data.id}`)
+            .delete();
+          this.$message.success("성공적으로 삭제되었습니다.");
+        } catch (err) {
+          this.$message.error(`Oops! ${err}`);
+        }
+      } else {
+        this.$emit("change-editable");
+      }
     }
   }
 };

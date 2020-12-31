@@ -63,7 +63,6 @@ export default {
       }
     },
     async getBookRecord(userUID) {
-      console.log("getBookRecord 메소드 불러옴");
       const bookRecord = await bookRecordRef
         .doc(`${userUID}`)
         .collection("bookInfo")
