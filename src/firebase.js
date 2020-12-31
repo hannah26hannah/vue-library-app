@@ -18,11 +18,12 @@ const firebaseConfig = {
 export default firebase.initializeApp(firebaseConfig);
 export const firebaseInstance = firebase;
 export const authService = firebase.auth();
-export const dbService = firebase.firestore();
+
 export const storageService = firebase.storage();
+
+export const dbService = firebase.firestore();
+export const bookRecordRef = dbService.collection("bookRecord");
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("getUser", user);
-  // sessionStorage.setItem("user", JSON.stringify(user));
-  // vue-persistedstate plugin will save current state to localStorage
 });

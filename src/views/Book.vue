@@ -1,69 +1,66 @@
 <template>
   <div class="book">
     <el-divider><b>2021 Reading Challenge</b></el-divider>
-    <section class="dashboard">
-      <article class="circle">
-        <el-progress type="circle" :percentage="0" />
-        <h3>The Year</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="25" />
-        <h3>The Month</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="100" status="success" />
-        <h3>The Week</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="70" status="warning" />
-        <h3>The Day</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="50" status="exception" />
-        <h3>The Exception</h3>
-      </article>
-    </section>
+    <dash-board />
 
     <el-divider><b>Book Timeline</b></el-divider>
     <el-timeline class="timeline">
-      <bookCard />
-      <el-timeline-item timestamp="2018/4/3" placement="top">
-        <el-card>
-          <h4>Update Github template</h4>
-          <p>Tom committed 2018/4/3 20:46</p>
-        </el-card>
-      </el-timeline-item>
-      <el-timeline-item timestamp="2018/4/2" placement="top">
-        <el-card>
-          <h4>Update Github template</h4>
-          <p>Tom committed 2018/4/2 20:46</p>
-        </el-card>
-      </el-timeline-item>
+      <!-- <bookCard :cardForm="this.cardForm2" /> -->
+      <section class="review-opener">
+        <el-button
+          type="primary"
+          icon="el-icon-edit"
+          circle
+          @click="toggleCardShow"
+        ></el-button>
+
+        <bookCard v-if="isEditable" @change-editable="changeEditable()" />
+      </section>
     </el-timeline>
   </div>
 </template>
 <script>
 import bookCard from "@/components/slices/BookCard.vue";
+import dashBoard from "@/components/slices/DashBoard.vue";
+// import { dbService, storageService } from '@/firebase';
 
 export default {
   name: "Book",
+  data() {
+    return {
+      isEditable: false
+      // cardForm2: {
+      //   title: "test",
+      //   writer: "test",
+      //   genre: "test",
+      //   quote: "test",
+      //   review: "test"
+      // }
+    };
+  },
   components: {
-    bookCard
+    bookCard,
+    dashBoard
+  },
+  computed: {
+    // test
+  },
+  methods: {
+    toggleCardShow() {
+      this.isEditable = !this.isEditable;
+    },
+    changeEditable() {
+      this.isEditable = false;
+    }
   }
 };
 </script>
 <style lang="scss" scoped>
-.dashboard {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  .circle {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .timeline {
   width: 90%;
+}
+
+.review-opener {
+  font-size: 30px;
 }
 </style>

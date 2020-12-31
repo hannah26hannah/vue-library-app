@@ -2,6 +2,10 @@
 @import "base/helper";
 @import "base/variables";
 
+// pages
 @import "pages/layout";
+@import "pages/myPage";
 
+// components
 @import "components/cards";
+@import "components/dashboard";

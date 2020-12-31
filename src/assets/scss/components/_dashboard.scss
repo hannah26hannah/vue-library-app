@@ -1,0 +1,9 @@
+.dashboard {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    .circle {
+      display: flex;
+      flex-direction: column;
+    }
+  }
