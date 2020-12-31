@@ -2,7 +2,8 @@ import Vue from "vue";
 
 // UI
 import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
+// import "element-ui/lib/theme-chalk/index.css";
+import "@/assets/scss/element-variables.scss";
 import "@/assets/css/common.css";
 import "@/fontAwesomeIcon.js";
 
