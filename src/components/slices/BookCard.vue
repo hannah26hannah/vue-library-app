@@ -98,9 +98,10 @@
 <script>
 import { bookRecordRef } from "@/firebase";
 import { parseTime } from "@/utils/index";
+import { mapGetters } from "vuex";
 
 export default {
-  props: ["userUID", "isEditable", "data"],
+  props: ["isEditable", "data"],
   data() {
     return {
       cardForm: {
@@ -117,8 +118,15 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["user"]),
+    userUID() {
+      return this.user.uid;
+    },
     createdAt() {
-      return this.cardForm.created;
+      if (this.cardForm.modified) {
+        return `created : ${this.cardForm.created} | modified : ${this.cardForm.modified}`;
+      }
+      return `created : ${this.cardForm.created}`;
     }
   },
   watch: {
@@ -153,18 +161,37 @@ export default {
       this.cardForm = {};
     },
     async onSubmit() {
-      try {
-        this.cardForm.created = parseTime(new Date(Date.now()));
-        await bookRecordRef
-          .doc(`${this.userUID}`)
-          .collection("bookInfo")
-          .add(this.cardForm);
-        this.$message.success("성공적으로 저장되었습니다.");
-        this.$emit("change-editable");
-      } catch (err) {
-        this.$message.error(`Oops! ${err}`);
+      console.log(this.data);
+      if (this.data) {
+        console.log("this.userUID", this.userUID);
+        try {
+          this.cardForm.modified = parseTime(new Date(Date.now())); // 새로운 필드 추가되는지 확인할 것
+          await bookRecordRef
+            .doc(`${this.userUID}`)
+            .collection("bookInfo")
+            .doc(`${this.data.id}`)
+            .update(this.cardForm);
+          this.$message.success("성공적으로 수정되었습니다.");
+          console.log("this.cardForm", this.cardForm);
+        } catch (err) {
+          this.$message.error(`Oops! ${err}`);
+        }
+      } else {
+        // 새로운 편집기에서 작성할 때
+        try {
+          this.cardForm.created = parseTime(new Date(Date.now()));
+          await bookRecordRef
+            .doc(`${this.userUID}`)
+            .collection("bookInfo")
+            .add(this.cardForm);
+          this.$message.success("성공적으로 저장되었습니다.");
+          this.$emit("change-editable");
+        } catch (err) {
+          this.$message.error(`Oops! ${err}`);
+        }
       }
       // TODO: 기존 포스트에 따라 업데이트 or 새로 업로드 구분할 것
+      // TODO: validation add rules
     },
     onDelete() {
       this.$emit("change-editable");

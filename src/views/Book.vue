@@ -21,7 +21,6 @@
         <bookCard
           v-if="isEditable"
           @change-editable="changeEditable()"
-          :userUID="this.userUID"
           :isEditable="this.isEditable"
         />
       </section>
@@ -40,13 +39,6 @@ export default {
     return {
       isEditable: false,
       bookList: []
-      // cardForm2: {
-      //   title: "test",
-      //   writer: "test",
-      //   genre: "test",
-      //   quote: "test",
-      //   review: "test"
-      // }
     };
   },
   components: {
@@ -77,7 +69,7 @@ export default {
         .collection("bookInfo")
         .get();
       bookRecord.forEach(doc => {
-        const records = { ...doc.data() };
+        const records = { ...doc.data(), id: doc.id };
         this.bookList.push(records);
       });
     },
