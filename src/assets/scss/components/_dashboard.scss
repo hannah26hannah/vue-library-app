@@ -21,6 +21,8 @@
           .el-card__body {
             display: flex;
             justify-content: center;
+            align-items: center;
+            flex-direction: column;
             padding: 50px;
           }
           .form__group {
@@ -96,6 +98,14 @@
               // color: $form-gray;
               visibility: hidden;
             }
+            
+          }
+          .form__button {
+            width: 80%;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+  
           }
         }
       }

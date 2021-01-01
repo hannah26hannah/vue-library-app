@@ -211,6 +211,8 @@
         .dashboard .dashboard__form-wrapper .dashboard__form .goal .el-card__body {
           display: flex;
           justify-content: center;
+          align-items: center;
+          flex-direction: column;
           padding: 50px; }
         .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group {
           position: relative;
@@ -251,6 +253,11 @@
             width: 20%; }
           .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__label {
             visibility: hidden; }
+        .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__button {
+          width: 80%;
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 20px; }
   .dashboard .dashboard__form-wrapper:after {
     background-image: url("../img/book_banner_img.webp");
     background-size: 100%;

@@ -14,6 +14,7 @@
               name="goal"
               id="goal"
               required
+              v-model="goalForm.goal"
             />
             <span>를/을 위해서 나는</span><br /><br />
             <label for="goal" class="form__label" />
@@ -43,21 +44,30 @@
               name="frequent"
               id="frequent"
               required
+              v-model="goalForm.frequent"
             />
             마다 📆
             <label for="frequent" class="form__label" />
             <!-- page -->
             <input
-              type="input"
+              type="number"
               class="form__field input-page"
               placeholder="page"
               name="page"
               id="page"
               required
+              v-model="goalForm.page"
             />
             <label for="page" class="form__label" />
             <span class="form__text">페이지만큼 읽고</span><br /><br />
-            <span class="form__text-right">짧은 서평을 남길 것이다✨</span>
+            <span class="form__text-right"
+              >타임라인에 짧은 서평을 남길 것이다✨</span
+            >
+          </div>
+          <div class="form__button">
+            <el-button type="primary" plain @click="onSubmit()"
+              >Update</el-button
+            >
           </div>
         </el-card>
       </el-form>
@@ -87,9 +97,13 @@
   </div>
 </template>
 <script>
+import { bookRecordRef } from "@/firebase";
+import { mapGetters } from "vuex";
+
 export default {
   data() {
     return {
+      goalInfo: [],
       isSetGoal: false,
       genres: [
         {
@@ -149,9 +163,69 @@ export default {
         goal: "",
         genre: [],
         frequent: "",
-        page: ""
+        page: "",
+        id: ""
       }
     };
+  },
+  computed: {
+    ...mapGetters(["user"]),
+    userUID() {
+      return this.user.uid;
+    }
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    init() {
+      if (this.userUID) {
+        this.getGoalInfo(this.userUID);
+      } else {
+        // TODO: 유저 정보 없을 경우 redirection 처리 Book.vue 참고
+      }
+    },
+    async getGoalInfo(userUID) {
+      const goalInfo = await bookRecordRef
+        .doc(`${userUID}`)
+        .collection("goalInfo")
+        .get();
+
+      goalInfo.forEach(doc => {
+        const records = { ...doc.data(), id: doc.id };
+        this.goalInfo.push(records);
+      });
+
+      Object.assign(this.goalForm, this.goalInfo[0]);
+      console.log("this.goalForm", this.goalForm);
+    },
+    async onSubmit() {
+      console.log("onsubmit 버튼 클릭 시", this.goalForm);
+      if (this.goalForm.id) {
+        try {
+          await bookRecordRef
+            .doc(`${this.userUID}`)
+            .collection("goalInfo")
+            .doc(`${this.goalForm.id}`)
+            .update(this.goalForm);
+          this.$message.success("독서 챌린지 정보가 업데이트되었습니다.");
+        } catch (err) {
+          this.$message.error(`Oops! ${err}`);
+          console.log(err);
+        }
+      } else {
+        try {
+          await bookRecordRef
+            .doc(`${this.userUID}`)
+            .collection("goalInfo")
+            .add(this.goalForm);
+          this.$message.success("독서 챌린지 정보가 저장되었습니다.");
+        } catch (err) {
+          this.$message.error(`Oops! ${err}`);
+          console.log(err);
+        }
+      }
+    }
   }
 };
 </script>
