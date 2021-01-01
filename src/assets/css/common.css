@@ -69,6 +69,20 @@
   .header-container .sub-link {
     text-decoration: none; }
 
+.vue-scroll-up {
+  width: 40px;
+  height: 40px;
+  background-color: #f2f5f6;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  line-height: 40px;
+  color: #1989fa;
+  position: relative;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%; }
+
 .myPage #userForm {
   width: 80%;
   margin: 0 auto;

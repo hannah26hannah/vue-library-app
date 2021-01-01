@@ -261,6 +261,7 @@ export default {
       this.goalCnt.day = Math.round(this.goalCnt.week / 7);
       this.goalCnt.year = indexYearCnt;
       console.log("counter result : ", this.goalCnt);
+      // TODO: page 업데이트 -> computed ?
     },
     async onSubmit() {
       console.log("onsubmit 버튼 클릭 시", this.goalForm);
