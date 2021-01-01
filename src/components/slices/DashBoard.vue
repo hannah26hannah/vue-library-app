@@ -1,7 +1,46 @@
 <template>
   <div class="dashboard">
-    <section v-if="!isSetGoal" class="dashboard__form-wrapper">
-      <h1>Set Your Challenge</h1>
+    <section class="dashboard__stats">
+      <h1>💎 Check Your Challenge Status💎</h1>
+      <div class="stats-wrapper">
+        <article class="circle-stats">
+          <el-progress type="circle" :percentage="0" />
+          <h3>Yearly Goal : {{ this.goalCnt.year }}p</h3>
+        </article>
+        <article class="stats">
+          <el-progress type="circle" :percentage="25" />
+          <h3>Monthly Goal : {{ this.goalCnt.month }}p</h3>
+        </article>
+        <article class="stats">
+          <el-progress type="circle" :percentage="100" status="success" />
+          <h3>Weekly Goal : {{ this.goalCnt.week }}p</h3>
+        </article>
+        <article class="stats">
+          <el-progress type="circle" :percentage="70" status="warning" />
+          <h3>Daily Goal : {{ this.goalCnt.day }}p</h3>
+        </article>
+      </div>
+      <h1>💎 Check Your Challenge Status💎</h1>
+      <div class="stats-bar">
+        <ul class="bar-stats-wrapper">
+          <li
+            class="bar-stats"
+            v-for="(genre, index) in this.goalForm.genre"
+            :value="genre"
+            :key="index"
+          >
+            <h3>{{ genre }}</h3>
+            <el-progress
+              :text-inside="true"
+              :stroke-width="30"
+              :percentage="70"
+            ></el-progress>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="dashboard__form-wrapper">
+      <h1>💎 Set Your Challenge 💎</h1>
       <el-form refs="goalForm" class="dashboard__form">
         <el-card class="goal">
           <div class="form__group">
@@ -37,16 +76,22 @@
             <span>분야의 책들을 📚</span><br /><br />
             <label for="genre" class="form__label" />
             <!-- frequent -->
-            <input
-              type="input"
-              class="form__field input-frequent"
-              placeholder="frequent"
+            <select
               name="frequent"
               id="frequent"
-              required
               v-model="goalForm.frequent"
-            />
-            마다 📆
+              class="form__field input-frequent"
+              placeholder="please select"
+              required
+            >
+              <option
+                v-for="item in frequent"
+                :key="item.value"
+                :value="item.label"
+                :label="item.label"
+              ></option>
+            </select>
+            📆
             <label for="frequent" class="form__label" />
             <!-- page -->
             <input
@@ -72,28 +117,6 @@
         </el-card>
       </el-form>
     </section>
-    <section v-else class="dashboard__stats">
-      <article class="circle">
-        <el-progress type="circle" :percentage="0" />
-        <h3>The Year</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="25" />
-        <h3>The Month</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="100" status="success" />
-        <h3>The Week</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="70" status="warning" />
-        <h3>The Day</h3>
-      </article>
-      <article class="circle">
-        <el-progress type="circle" :percentage="50" status="exception" />
-        <h3>The Exception</h3>
-      </article>
-    </section>
   </div>
 </template>
 <script>
@@ -104,7 +127,13 @@ export default {
   data() {
     return {
       goalInfo: [],
-      isSetGoal: false,
+      cnt: "",
+      goalCnt: {
+        year: "",
+        month: "",
+        week: "",
+        day: ""
+      },
       genres: [
         {
           value: "1",
@@ -159,6 +188,20 @@ export default {
           label: "컴퓨터/IT"
         }
       ],
+      frequent: [
+        {
+          value: 0,
+          label: "매일"
+        },
+        {
+          value: 1,
+          label: "일주일마다"
+        },
+        {
+          value: 2,
+          label: "한 달에"
+        }
+      ],
       goalForm: {
         goal: "",
         genre: [],
@@ -197,7 +240,27 @@ export default {
       });
 
       Object.assign(this.goalForm, this.goalInfo[0]);
-      console.log("this.goalForm", this.goalForm);
+      this.cnt = this.goalForm.page;
+      this.pageCount(this.cnt, this.goalForm.frequent);
+    },
+    pageCount(cnt, frequent) {
+      let indexYearCnt;
+      switch (frequent) {
+        case this.frequent[0].label:
+          indexYearCnt = cnt * 365;
+          break;
+        case this.frequent[1].label:
+          indexYearCnt = cnt * 52;
+          break;
+        case this.frequent[2].label:
+          indexYearCnt = cnt * 12;
+          break;
+      }
+      this.goalCnt.month = Math.round(indexYearCnt / 12);
+      this.goalCnt.week = Math.round(indexYearCnt / 52);
+      this.goalCnt.day = Math.round(this.goalCnt.week / 7);
+      this.goalCnt.year = indexYearCnt;
+      console.log("counter result : ", this.goalCnt);
     },
     async onSubmit() {
       console.log("onsubmit 버튼 클릭 시", this.goalForm);
