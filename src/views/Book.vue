@@ -1,8 +1,5 @@
 <template>
   <div class="book">
-    <el-divider><b>2021 Reading Challenge</b></el-divider>
-    <dash-board />
-
     <el-divider><b>Book Timeline</b></el-divider>
     <el-timeline class="timeline">
       <section v-if="isNoData" class="isNoData">
@@ -34,7 +31,6 @@
 </template>
 <script>
 import bookCard from "@/components/slices/BookCard.vue";
-import dashBoard from "@/components/slices/DashBoard.vue";
 import { mapGetters } from "vuex";
 import { bookRecordRef } from "@/firebase";
 
@@ -48,8 +44,7 @@ export default {
     };
   },
   components: {
-    bookCard,
-    dashBoard
+    bookCard
   },
   computed: {
     ...mapGetters(["user"]),

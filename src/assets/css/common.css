@@ -194,6 +194,77 @@
   display: flex;
   width: 100%;
   justify-content: space-around; }
+  .dashboard .dashboard__form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 500px; }
+    .dashboard .dashboard__form-wrapper .dashboard__form {
+      width: 80%; }
+      .dashboard .dashboard__form-wrapper .dashboard__form .goal {
+        zoom: 1;
+        filter: alpha(opacity=60);
+        opacity: 0.9; }
+        .dashboard .dashboard__form-wrapper .dashboard__form .goal .el-card__body {
+          display: flex;
+          justify-content: center;
+          padding: 50px; }
+        .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group {
+          position: relative;
+          margin-top: 10px;
+          width: 80%;
+          font-size: 20px;
+          text-align: left; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__text {
+            margin-right: 10px; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__text-right {
+            display: block;
+            text-align: right; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__field {
+            margin-right: 10px;
+            font-family: inherit;
+            width: 70%;
+            border: 0;
+            border-bottom: 1px solid #9b9b9b;
+            outline: 0;
+            font-size: 1.05rem;
+            color: #9b9b9b;
+            padding: 2px 0;
+            background: transparent;
+            transition: border-color 0.2s;
+            text-align: center; }
+            .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__field::placeholder {
+              color: transparent; }
+            .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__field:placeholder-shown ~ .form__label {
+              font-size: 1.3rem;
+              cursor: text;
+              top: 20px; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .select-genre {
+            border-bottom: none;
+            width: 70%; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .input-frequent {
+            width: 35%; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .input-page {
+            width: 20%; }
+          .dashboard .dashboard__form-wrapper .dashboard__form .goal .form__group .form__label {
+            visibility: hidden; }
+  .dashboard .dashboard__form-wrapper:after {
+    background-image: url("../img/book_banner_img.webp");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    top: 0;
+    left: 0;
+    position: absolute;
+    opacity: 0.5 !important;
+    filter: alpha(opacity=50);
+    z-index: -1;
+    content: "";
+    width: 100%;
+    height: 100%; }
   .dashboard .circle {
     display: flex;
     flex-direction: column; }

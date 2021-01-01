@@ -17,20 +17,23 @@
     <el-menu-item index="3">
       <router-link to="/book">Book</router-link>
     </el-menu-item>
+    <el-menu-item index="4">
+      <router-link to="/challenge">Challenge</router-link>
+    </el-menu-item>
     <router-link to="/login" v-if="isLoginShow">
-      <el-menu-item index="4">
+      <el-menu-item index="5">
         <font-awesome-icon class="mr10" icon="sign-in-alt" />Login
       </el-menu-item></router-link
     >
-    <el-submenu index="5" v-else>
+    <el-submenu index="6" v-else>
       <template slot="title">My Page</template>
       <router-link to="/myPage" style="text-decoration: none;">
-        <el-menu-item index="5-1">
+        <el-menu-item index="6-1">
           <font-awesome-icon class="mr10" icon="user-cog" />My
           Page</el-menu-item
         >
       </router-link>
-      <el-menu-item index="5-2" @click="logout"
+      <el-menu-item index="6-2" @click="logout"
         ><font-awesome-icon icon="sign-out-alt" class="mr10" />
         Logout</el-menu-item
       >

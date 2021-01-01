@@ -161,7 +161,6 @@ export default {
       this.cardForm = {};
     },
     async onSubmit() {
-      console.log(this.data);
       if (this.data) {
         console.log("this.userUID", this.userUID);
         try {
