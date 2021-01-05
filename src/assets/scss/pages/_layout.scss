@@ -14,9 +14,7 @@
   }
 }
 
-// ---------------------------------------------------------------
-// scroll-up button
-// ---------------------------------------------------------------
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -25,6 +23,12 @@
   color: #2c3e50;
   position: relative;
 
+  .router-section {
+    padding: 20px;
+  }
+// ---------------------------------------------------------------
+// scroll-up button
+// ---------------------------------------------------------------
   .vue-scroll-up {
     width: 40px;
     height: 40px;

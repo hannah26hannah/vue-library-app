@@ -1,33 +1,45 @@
 <template>
-  <div class="book">
-    <el-divider><b>Book Timeline</b></el-divider>
-    <el-timeline class="timeline">
-      <section v-if="isNoData" class="isNoData">
-        <p>I know you have something to review ..soon!</p>
-        <p>Capture your amazing reviews via this button below!</p>
-      </section>
-      <bookCard
-        v-else
-        v-for="(book, index) in this.bookList"
-        :key="index"
-        :data="book"
-      />
-      <section class="review-opener">
-        <el-button
-          type="primary"
-          icon="el-icon-edit"
-          circle
-          @click="toggleCardShow"
-        ></el-button>
+  <el-container>
+    <el-aside width="200px"
+      ><h2 style="text-align: left; display:table-cell; padding-bottom: 20px; ">
+        Search bar option
+      </h2></el-aside
+    >
+    <el-main>
+      <div class="book">
+        <el-timeline class="timeline">
+          <h2
+            style="text-align: left; display:table-cell; padding-bottom: 20px; "
+          >
+            Review Timeline
+          </h2>
+          <section v-if="isNoData" class="isNoData">
+            <p>I know you have something to review ..soon!</p>
+            <p>Capture your amazing reviews via this button below!</p>
+          </section>
+          <bookCard
+            v-else
+            v-for="(book, index) in this.bookList"
+            :key="index"
+            :data="book"
+          />
+          <section class="review-opener">
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              circle
+              @click="toggleCardShow"
+            ></el-button>
 
-        <bookCard
-          v-if="isEditable"
-          @change-editable="changeEditable()"
-          :isEditable="this.isEditable"
-        />
-      </section>
-    </el-timeline>
-  </div>
+            <bookCard
+              v-if="isEditable"
+              @change-editable="changeEditable()"
+              :isEditable="this.isEditable"
+            />
+          </section>
+        </el-timeline></div
+    ></el-main>
+  </el-container>
 </template>
 <script>
 import bookCard from "@/components/slices/BookCard.vue";

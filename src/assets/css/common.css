@@ -81,6 +81,8 @@
   text-align: center;
   color: #2c3e50;
   position: relative; }
+  #app .router-section {
+    padding: 20px; }
   #app .vue-scroll-up {
     width: 40px;
     height: 40px;

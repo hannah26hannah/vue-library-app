@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <the-header />
-    <router-view />
+    <router-view class="router-section" />
     <ScrollUp :scroll-duration="1000" :scroll-y="250" />
   </div>
 </template>
