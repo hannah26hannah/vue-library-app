@@ -4,21 +4,21 @@
     class="header-container"
     mode="horizontal"
     @select="handleSelect"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    background-color="#FBFBFD"
+    text-color="#37447E"
+    active-text-color="#B33771"
   >
     <el-menu-item index="1">
       <router-link to="/">Home</router-link>
     </el-menu-item>
     <el-menu-item index="2">
-      <router-link to="/about">About</router-link>
+      <router-link to="/challenge">Challenge</router-link>
     </el-menu-item>
     <el-menu-item index="3">
       <router-link to="/book">Book</router-link>
     </el-menu-item>
     <el-menu-item index="4">
-      <router-link to="/challenge">Challenge</router-link>
+      <router-link to="/timeline">Timeline</router-link>
     </el-menu-item>
     <router-link to="/login" v-if="isLoginShow">
       <el-menu-item index="5">
@@ -26,7 +26,7 @@
       </el-menu-item></router-link
     >
     <el-submenu index="6" v-else>
-      <template slot="title">My Page</template>
+      <template slot="title">My Library</template>
       <router-link to="/myPage" style="text-decoration: none;">
         <el-menu-item index="6-1">
           <font-awesome-icon class="mr10" icon="user-cog" />My

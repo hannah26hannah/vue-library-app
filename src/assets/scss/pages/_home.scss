@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+.home {
+    .home-text {
+        color: $form-primary-light;
+    }
+    padding: 20px;
+    .homeCard {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    
+        .img-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img {
+                width: 90%;
+            }
+        }
+    
+        .welcome-container {
+            width: 50%;
+            height: auto;
+            margin: 0 auto;
+            text-align: left;
+            .text-box {
+                line-height: 26px;
+                margin: 15px 0 60px 0;
+            }
+            .btn-box {
+                display: flex;
+                button {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
 .m0 {
   margin: 0px !important; }
 
@@ -61,6 +63,9 @@
 .mb30 {
   margin-bottom: 30px !important; }
 
+.mb50 {
+  margin-bottom: 50px !important; }
+
 .header-container {
   display: flex;
   justify-content: flex-end; }
@@ -69,19 +74,61 @@
   .header-container .sub-link {
     text-decoration: none; }
 
-.vue-scroll-up {
-  width: 40px;
-  height: 40px;
-  background-color: #f2f5f6;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  line-height: 40px;
-  color: #1989fa;
-  position: relative;
-  z-index: 10;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%; }
+  color: #2c3e50;
+  position: relative; }
+  #app .vue-scroll-up {
+    width: 40px;
+    height: 40px;
+    background-color: #f2f5f6;
+    text-align: center;
+    line-height: 40px;
+    color: #37447E;
+    position: absolute;
+    z-index: 10;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin: 1rem;
+    border: none;
+    outline: none; }
+    #app .vue-scroll-up::after {
+      content: "▲"; }
+
+.home {
+  padding: 20px; }
+  .home .home-text {
+    color: #929ECC; }
+  .home .homeCard {
+    width: 100%;
+    height: 100%;
+    display: flex; }
+    .home .homeCard .img-container {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .home .homeCard .img-container img {
+        width: 90%; }
+    .home .homeCard .welcome-container {
+      width: 50%;
+      height: auto;
+      margin: 0 auto;
+      text-align: left; }
+      .home .homeCard .welcome-container .text-box {
+        line-height: 26px;
+        margin: 15px 0 60px 0; }
+      .home .homeCard .welcome-container .btn-box {
+        display: flex; }
+        .home .homeCard .welcome-container .btn-box button {
+          width: 200px; }
 
 .myPage #userForm {
   width: 80%;
@@ -116,6 +163,25 @@
       overflow: hidden;
       clip: rect(0, 0, 0, 0);
       border: 0; }
+
+#signIn,
+#userInfo {
+  width: 40%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; }
+  #signIn .btnBox,
+  #userInfo .btnBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end; }
+
+.currentStatus {
+  color: #929ECC;
+  font-style: italic; }
+
+.smallBtn {
+  margin: 20px 0 0 0px; }
 
 .timeline {
   width: 90%; }
@@ -180,7 +246,7 @@
   padding-bottom: 6px;
   font-weight: 500;
   border-width: 2px;
-  border-image: linear-gradient(to right, #ffd04b, #9b9b9b);
+  border-image: linear-gradient(to right, #37447E, #9b9b9b);
   border-image-slice: 1; }
   .card-container .card .form__field:focus ~ .form__label {
     position: absolute;
@@ -188,7 +254,7 @@
     display: block;
     transition: 0.2s;
     font-size: 1rem;
-    color: #ffd04b;
+    color: #37447E;
     font-weight: 700; }
 
 .card-container .card .form__label {

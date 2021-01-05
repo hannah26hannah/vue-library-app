@@ -141,27 +141,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-#signIn,
-#userInfo {
-  width: 40%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-
-  .btnBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-}
-
-.currentStatus {
-  color: #ffd04b;
-  font-style: italic;
-}
-
-.smallBtn {
-  margin: 20px 0 0 0px;
-}
-</style>
