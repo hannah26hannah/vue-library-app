@@ -152,10 +152,12 @@
       line-height: normal;
       vertical-align: middle;
       cursor: pointer;
-      border: 1px solid #EAB543;
+      border: 1px solid #37447E;
       border-radius: 0.25em;
       color: #fff;
-      background-color: #EAB543; }
+      background-color: #37447E; }
+    .myPage #userForm .profileImg #fileBox label:hover {
+      background-color: #9b9b9b; }
     .myPage #userForm .profileImg #fileBox input[type="file"] {
       position: absolute;
       width: 1px;
@@ -165,6 +167,32 @@
       overflow: hidden;
       clip: rect(0, 0, 0, 0);
       border: 0; }
+
+.myPage .library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
+  grid-column-gap: 50px;
+  grid-row-gap: 50px;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 20px; }
+  .myPage .library .book-container .comment-alert {
+    margin-top: 10px;
+    margin-right: 40px; }
+  .myPage .library .book {
+    height: 226px;
+    width: 154px;
+    background: #929ECC;
+    border: 1px solid #2c3e50;
+    box-sizing: border-box;
+    box-shadow: 2px 7px 1px lightgray;
+    border-radius: 8px;
+    font-size: 1.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff; }
 
 #signIn,
 #userInfo {

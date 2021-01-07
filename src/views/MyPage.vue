@@ -9,7 +9,7 @@
         <span slot="label"
           ><i class="el-icon-notebook-2 mr10"></i> Library</span
         >
-        Library
+        <library />
       </el-tab-pane>
       <el-tab-pane>
         <span slot="label"><i class="el-icon-s-flag mr10"></i> Challenge</span>
@@ -20,11 +20,13 @@
 </template>
 <script>
 import profile from "@/components/Profile";
+import library from "@/components/Library";
 
 export default {
   name: "MyPage",
   components: {
-    profile
+    profile,
+    library
   }
 };
 </script>
