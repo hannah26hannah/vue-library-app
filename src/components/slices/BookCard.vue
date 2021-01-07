@@ -52,14 +52,14 @@
         <!-- quotes -->
         <div class="form__group">
           <textarea
-            class="form__field"
+            class="form__field disableScroll"
             id="quote"
             name="quote"
-            rows="2"
             cols="25"
             placeholder="record something memorable .."
             v-model="cardForm.quote"
             :readonly="data ? !isCardEditable : false"
+            @input="mixin_autoResize_resize"
           ></textarea>
           <label for="quote" class="form__label">Quote</label>
         </div>
@@ -67,14 +67,14 @@
         <!-- Review -->
         <div class="form__group">
           <textarea
-            class="form__field"
+            class="form__field disableScroll"
             id="review"
             name="review"
-            rows="2"
             cols="25"
             placeholder="make a review .."
             v-model="cardForm.review"
             :readonly="data ? !isCardEditable : false"
+            @input="mixin_autoResize_resize"
           ></textarea>
           <label for="review" class="form__label">Review</label>
         </div>
@@ -99,9 +99,11 @@
 import { bookRecordRef } from "@/firebase";
 import { parseTime } from "@/utils/index";
 import { mapGetters } from "vuex";
+import mixinAutoResize from "@/mixins/autoResize.js";
 
 export default {
   props: ["isEditable", "data"],
+  mixins: [mixinAutoResize],
   data() {
     return {
       cardForm: {

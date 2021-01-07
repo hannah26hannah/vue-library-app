@@ -241,6 +241,8 @@
   padding: 20px 0 0;
   margin-top: 10px;
   width: 100%; }
+  .card-container .card .form__group .disableScroll {
+    overflow: hidden; }
 
 .card-container .card .form__group-second {
   display: flex;
