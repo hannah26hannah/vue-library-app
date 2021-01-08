@@ -1,10 +1,9 @@
 <template>
   <el-container>
+    <!-- sidebar searcher-->
     <el-menu
       default-active="1"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
     >
       <el-menu-item index="1" @click="toggleSideBar()">
@@ -15,16 +14,32 @@
       </el-menu-item>
       <searcher v-if="!isCollapse" @handle-toggle="toggleSideBar()" />
     </el-menu>
-    <!-- <el-aside v-if="false" el-aside width="200px">
-    </el-aside> -->
+
+    <!-- book review list -->
     <el-main>
       <div class="book">
-        <el-timeline class="timeline">
-          <h2
-            style="text-align: left; display:table-cell; padding-bottom: 20px; "
-          >
-            Review Timeline
-          </h2>
+        <el-row class="title">
+          <el-col :span="12">
+            <h2
+              style="text-align: left; display:table-cell; padding-bottom: 20px; "
+            >
+              Review Timeline
+            </h2>
+          </el-col>
+          <el-col :offset="8" :span="8">
+            <el-tooltip
+              content="sort by modified timestamp"
+              placement="top"
+              effect="light"
+            >
+              <el-radio-group v-model="reverse">
+                <el-radio :label="true">Latest</el-radio>
+                <el-radio :label="false">Oldest</el-radio>
+              </el-radio-group>
+            </el-tooltip>
+          </el-col>
+        </el-row>
+        <el-timeline class="timeline" :reverse="reverse">
           <section v-if="isNoData" class="isNoData">
             <p>I know you have something to review ..soon!</p>
             <p>Capture your amazing reviews via this button below!</p>
@@ -35,6 +50,8 @@
             :key="index"
             :data="book"
           />
+        </el-timeline>
+        <el-timeline class="timeline">
           <section class="review-opener">
             <el-button
               type="primary"
@@ -47,6 +64,7 @@
               v-if="isEditable"
               @change-editable="changeEditable()"
               :isEditable="this.isEditable"
+              hide-timestamp="true"
             />
           </section>
         </el-timeline></div
@@ -63,6 +81,7 @@ export default {
   name: "Book",
   data() {
     return {
+      reverse: true,
       isEditable: false,
       bookList: [],
       isNoData: false,

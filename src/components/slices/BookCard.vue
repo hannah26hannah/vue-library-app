@@ -39,7 +39,7 @@
               v-model="cardForm.genre"
               placeholder="genre"
               name="genre"
-              :readonly="data ? !isCardEditable : false"
+              :disabled="data ? !isCardEditable : false"
             >
               <option
                 v-for="(genre, index) in genres"

@@ -96,7 +96,6 @@ export default {
         if (genres.exists) {
           this.genres.push(Object.values(genres.data()));
           this.genres = this.genres[0];
-          console.log("this.genres", this.genres);
         } else {
           this.$message.error("No such data!");
         }
