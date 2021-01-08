@@ -113,8 +113,8 @@
 </template>
 <script>
 import { bookRecordRef } from "@/firebase";
-import { parseTime } from "@/utils/index";
 import { commonCodeRef } from "@/firebase";
+import { parseTime } from "@/utils/index";
 import { mapGetters } from "vuex";
 import mixinAutoResize from "@/mixins/autoResize.js";
 

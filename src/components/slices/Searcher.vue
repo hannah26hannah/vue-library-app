@@ -14,9 +14,12 @@
         placeholder="search with genre"
         multiple
       >
-        <el-option label="Restaurant" value="1"></el-option>
-        <el-option label="Order No." value="2"></el-option>
-        <el-option label="Tel" value="3"></el-option>
+        <el-option
+          v-for="(genre, index) in genres"
+          :key="index"
+          :label="genre"
+          :value="genre"
+        />
       </el-select>
 
       <!-- YEAR SEARCH -->
@@ -64,19 +67,44 @@
 </template>
 
 <script>
+import { commonCodeRef } from "@/firebase";
+
 export default {
   data() {
     return {
       searchForm: {
         keyword: "",
-        genre: [],
+        genre: "",
         year: "",
         month: "",
         searchDate: []
-      }
+      },
+      genres: []
     };
   },
+  created() {
+    this.init();
+  },
   methods: {
+    init() {
+      this.getGenres();
+    },
+    async getGenres() {
+      try {
+        const genres = await commonCodeRef.doc("genres").get();
+
+        if (genres.exists) {
+          this.genres.push(Object.values(genres.data()));
+          this.genres = this.genres[0];
+          console.log("this.genres", this.genres);
+        } else {
+          this.$message.error("No such data!");
+        }
+      } catch (err) {
+        this.$message.error(`Oops! ${err}`);
+        console.log(err);
+      }
+    },
     onSubmit() {
       console.log("handle submit");
       this.$emit("handle-toggle");
