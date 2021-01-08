@@ -12,7 +12,12 @@
           isCollapse ? "Open Search Bar" : "Close Search Bar"
         }}</span>
       </el-menu-item>
-      <searcher v-if="!isCollapse" @handle-toggle="toggleSideBar()" />
+      <searcher
+        v-if="!isCollapse"
+        @handle-toggle="toggleSideBar()"
+        @send-searchParam="setSearchForm"
+        @handle-init="init()"
+      />
     </el-menu>
 
     <!-- book review list -->
@@ -49,6 +54,9 @@
             v-for="(book, index) in this.bookList"
             :key="index"
             :data="book"
+            v-loading="loading"
+            element-loading-text="Loading..."
+            element-loading-spinner="el-icon-loading"
           />
         </el-timeline>
         <el-timeline class="timeline">
@@ -76,16 +84,19 @@ import bookCard from "@/components/slices/BookCard.vue";
 import searcher from "@/components/slices/Searcher.vue";
 import { mapGetters } from "vuex";
 import { bookRecordRef } from "@/firebase";
+import { isEmpty } from "@/utils/helper";
 
 export default {
   name: "Book",
   data() {
     return {
+      loading: false,
       reverse: true,
       isEditable: false,
       bookList: [],
       isNoData: false,
-      isCollapse: true
+      isCollapse: true,
+      searchParam: {} // search parameters from Searcher child component
     };
   },
   components: {
@@ -104,10 +115,22 @@ export default {
   methods: {
     init() {
       if (this.userUID) {
-        this.getBookRecord(this.userUID);
+        this.loading = true;
+        const isSearchParamNull = isEmpty(this.searchParam);
+
+        if (!isSearchParamNull) {
+          this.getSearchRecord(this.userUID, this.searchParam);
+        } else {
+          this.getBookRecord(this.userUID);
+        }
+        this.loading = false;
       } else {
         // TODO: user 정보 없을 경우 redirection. 애초에 beforeEnter로 redirection 처리해줄 것.
       }
+      console.log("handle init");
+    },
+    setSearchForm(param) {
+      this.searchParam = param;
     },
     async getBookRecord(userUID) {
       const bookRecord = await bookRecordRef
@@ -121,6 +144,32 @@ export default {
       const size = this.bookList.length;
       if (size === 0) {
         this.isNoData = true;
+      }
+    },
+    async getSearchRecord(userUID, query) {
+      try {
+        this.bookList = []; // initialization
+        await bookRecordRef
+          .doc(`${userUID}`)
+          .collection("bookInfo")
+          .where("genre", "in", query.genre)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              const records = { ...doc.data(), id: doc.id };
+              this.bookList.push(records);
+            });
+            const size = this.bookList.length;
+            if (size === 0) {
+              this.$message.warning("There is no result. Try again!");
+              setTimeout(() => {
+                this.toggleSideBar();
+              }, 2000);
+            }
+          });
+      } catch (err) {
+        this.$message.error(`Oops! ${err}`);
+        console.log(err);
       }
     },
     toggleSideBar() {

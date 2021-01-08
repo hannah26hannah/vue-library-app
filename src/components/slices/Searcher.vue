@@ -27,6 +27,7 @@
         v-model="searchForm.year"
         type="year"
         placeholder="Pick a year"
+        value-format="timestamp"
       >
       </el-date-picker>
 
@@ -35,6 +36,7 @@
         v-model="searchForm.month"
         type="month"
         placeholder="Pick a month"
+        value-format="timestamp"
       >
       </el-date-picker>
 
@@ -45,6 +47,7 @@
         range-separator="To"
         start-placeholder="Start date"
         end-placeholder="End date"
+        value-format="timestamp"
       >
       </el-date-picker>
 
@@ -105,8 +108,10 @@ export default {
       }
     },
     onSubmit() {
-      console.log("handle submit");
+      console.log("this.searchForm", this.searchForm);
+      this.$emit("send-searchParam", this.searchForm);
       this.$emit("handle-toggle");
+      this.$emit("handle-init");
     },
     onReset() {
       this.searchForm = {};
