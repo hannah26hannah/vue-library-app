@@ -51,31 +51,47 @@
         </div>
         <!-- quotes -->
         <div class="form__group">
-          <textarea
-            class="form__field disableScroll"
-            id="quote"
-            name="quote"
-            cols="25"
-            placeholder="record something memorable .."
-            v-model="cardForm.quote"
-            :readonly="data ? !isCardEditable : false"
-            @input="mixin_autoResize_resize"
-          ></textarea>
+          <el-tooltip
+            content="Click to see More"
+            placement="left"
+            effect="light"
+          >
+            <textarea
+              class="form__field disableScroll"
+              id="quote"
+              name="quote"
+              rows="2"
+              cols="25"
+              placeholder="record something memorable .."
+              v-model="cardForm.quote"
+              :readonly="data ? !isCardEditable : false"
+              @input="mixin_autoResize_resize"
+              @click="mixin_autoResize_resize"
+            ></textarea>
+          </el-tooltip>
           <label for="quote" class="form__label">Quote</label>
         </div>
 
         <!-- Review -->
         <div class="form__group">
-          <textarea
-            class="form__field disableScroll"
-            id="review"
-            name="review"
-            cols="25"
-            placeholder="make a review .."
-            v-model="cardForm.review"
-            :readonly="data ? !isCardEditable : false"
-            @input="mixin_autoResize_resize"
-          ></textarea>
+          <el-tooltip
+            content="Click to see More"
+            placement="left"
+            effect="light"
+          >
+            <textarea
+              class="form__field disableScroll"
+              id="review"
+              name="review"
+              rows="2"
+              cols="25"
+              placeholder="make a review .."
+              v-model="cardForm.review"
+              :readonly="data ? !isCardEditable : false"
+              @input="mixin_autoResize_resize"
+              @click="mixin_autoResize_resize"
+            ></textarea>
+          </el-tooltip>
           <label for="review" class="form__label">Review</label>
         </div>
         <div v-if="isEditableCopied" class="form__button">
@@ -148,6 +164,9 @@ export default {
   },
   created() {
     this.init();
+  },
+  mounted() {
+    this.el = this.$el;
   },
   methods: {
     init() {
