@@ -1,0 +1,23 @@
+// .searcher {
+//     background-color: lightblue;
+//     padding: 33px;
+//     height: 300px;
+//     .search-bar {
+//         height: 70%;
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: space-evenly;
+//     }
+// }
+
+.searcher {
+    height: 300px;
+    padding: 33px 17px;
+    height: 300px;
+    .search-bar {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
+}

@@ -43,7 +43,7 @@
         v-model="userForm.displayName"
       ></el-input>
     </el-form-item>
-    <el-row type="flex" justify="end">
+    <el-row class="btnBoxRight">
       <el-button type="primary" @click="updateProfile">Update</el-button>
       <el-button>Cancel</el-button>
     </el-row>

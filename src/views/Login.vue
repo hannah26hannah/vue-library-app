@@ -35,7 +35,7 @@
             placeholder="password"
           ></el-input>
         </el-form-item>
-        <div class="btnBox">
+        <div class="btnBoxRight">
           <el-button
             type="primary"
             @click="signIn()"

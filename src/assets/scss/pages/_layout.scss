@@ -14,6 +14,14 @@
   }
 }
 
+// ---------------------------------------------------------------
+// Component Layout
+// ---------------------------------------------------------------
+.btnBoxRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

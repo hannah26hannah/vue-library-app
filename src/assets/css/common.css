@@ -74,6 +74,11 @@
   .header-container .sub-link {
     text-decoration: none; }
 
+.btnBoxRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -200,11 +205,6 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column; }
-  #signIn .btnBox,
-  #userInfo .btnBox {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end; }
 
 .currentStatus {
   color: #929ECC;
@@ -213,24 +213,32 @@
 .smallBtn {
   margin: 20px 0 0 0px; }
 
-.timeline {
-  width: 90%; }
-  .timeline .isNoData {
-    background: #9b9b9b;
-    color: #fff;
-    width: 80%;
-    margin: 0 auto;
-    height: 100px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 23px;
-    flex-direction: column;
-    padding: 34px;
-    margin-bottom: 20px; }
-  .timeline .review-opener {
-    font-size: 30px; }
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 400px;
+  min-height: 400px;
+  background-color: #FBFBFD; }
+
+.el-main {
+  padding-left: 0; }
+  .el-main .timeline {
+    width: 90%;
+    padding-left: 20px; }
+    .el-main .timeline .isNoData {
+      background: #9b9b9b;
+      color: #fff;
+      width: 80%;
+      margin: 0 auto;
+      height: 100px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 23px;
+      flex-direction: column;
+      padding: 34px;
+      margin-bottom: 20px; }
+    .el-main .timeline .review-opener {
+      font-size: 30px; }
 
 .card-container .el-timeline-item__timestamp {
   text-align: right;
@@ -394,3 +402,13 @@
     padding: 40px; }
     .dashboard .dashboard__stats .bar-stats-wrapper .bar-stats {
       list-style: none; }
+
+.searcher {
+  height: 300px;
+  padding: 33px 17px;
+  height: 300px; }
+  .searcher .search-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; }

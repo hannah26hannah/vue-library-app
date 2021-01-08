@@ -1,10 +1,22 @@
 <template>
   <el-container>
-    <el-aside width="200px"
-      ><h2 style="text-align: left; display:table-cell; padding-bottom: 20px; ">
-        Search bar option
-      </h2></el-aside
+    <el-menu
+      default-active="1"
+      class="el-menu-vertical-demo"
+      @open="handleOpen"
+      @close="handleClose"
+      :collapse="isCollapse"
     >
+      <el-menu-item index="1" @click="toggleSideBar()">
+        <i class="el-icon-search"></i>
+        <span slot="title">{{
+          isCollapse ? "Open Search Bar" : "Close Search Bar"
+        }}</span>
+      </el-menu-item>
+      <searcher v-if="!isCollapse" @handle-toggle="toggleSideBar()" />
+    </el-menu>
+    <!-- <el-aside v-if="false" el-aside width="200px">
+    </el-aside> -->
     <el-main>
       <div class="book">
         <el-timeline class="timeline">
@@ -43,6 +55,7 @@
 </template>
 <script>
 import bookCard from "@/components/slices/BookCard.vue";
+import searcher from "@/components/slices/Searcher.vue";
 import { mapGetters } from "vuex";
 import { bookRecordRef } from "@/firebase";
 
@@ -52,11 +65,13 @@ export default {
     return {
       isEditable: false,
       bookList: [],
-      isNoData: false
+      isNoData: false,
+      isCollapse: true
     };
   },
   components: {
-    bookCard
+    bookCard,
+    searcher
   },
   computed: {
     ...mapGetters(["user"]),
@@ -88,6 +103,9 @@ export default {
       if (size === 0) {
         this.isNoData = true;
       }
+    },
+    toggleSideBar() {
+      this.isCollapse = !this.isCollapse;
     },
     toggleCardShow() {
       this.isEditable = !this.isEditable;

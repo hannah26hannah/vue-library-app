@@ -13,7 +13,6 @@
             class="form__field"
             placeholder="title"
             name="title"
-            id="title"
             required
             v-model="cardForm.title"
             :readonly="data ? !isCardEditable : false"
@@ -28,7 +27,6 @@
               class="form__field"
               placeholder="writer"
               name="writer"
-              id="writer"
               required
               v-model="cardForm.writer"
               :readonly="data ? !isCardEditable : false"
@@ -36,22 +34,11 @@
             <label for="writer" class="form__label">Writer</label>
           </div>
           <div class="form__group-second-item">
-            <!-- <input
-              type="input"
-              class="form__field"
-              placeholder="genre"
-              name="genre"
-              id="genre"
-              required
-              v-model="cardForm.genre"
-              
-            /> -->
             <select
               class="form__field select-genre"
               v-model="cardForm.genre"
               placeholder="genre"
               name="genre"
-              id="genre"
               :readonly="data ? !isCardEditable : false"
             >
               <option
@@ -73,7 +60,6 @@
           >
             <textarea
               class="form__field disableScroll"
-              id="quote"
               name="quote"
               rows="2"
               cols="25"
@@ -96,7 +82,6 @@
           >
             <textarea
               class="form__field disableScroll"
-              id="review"
               name="review"
               rows="2"
               cols="25"
@@ -160,8 +145,10 @@ export default {
     createdAt() {
       if (this.cardForm.modified) {
         return `created : ${this.cardForm.created} | modified : ${this.cardForm.modified}`;
+      } else if (this.cardForm.created) {
+        return `created : ${this.cardForm.created}`;
       }
-      return `created : ${this.cardForm.created}`;
+      return "";
     }
   },
   watch: {
