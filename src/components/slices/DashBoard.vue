@@ -67,10 +67,10 @@
               id="genre"
             >
               <el-option
-                v-for="genre in genres"
-                :key="genre.value"
-                :label="genre.label"
-                :value="genre.label"
+                v-for="(genre, index) in genres"
+                :key="index"
+                :label="genre"
+                :value="genre"
               />
             </el-select>
             <span>분야의 책들을 📚</span><br /><br />
@@ -121,6 +121,7 @@
 </template>
 <script>
 import { bookRecordRef } from "@/firebase";
+import { commonCodeRef } from "@/firebase";
 import { mapGetters } from "vuex";
 
 export default {
@@ -134,60 +135,7 @@ export default {
         week: "",
         day: ""
       },
-      genres: [
-        {
-          value: "1",
-          label: "소설/시"
-        },
-        {
-          value: "2",
-          label: "에세이"
-        },
-        {
-          value: "3",
-          label: "경제/경영"
-        },
-        {
-          value: "4",
-          label: "자기계발"
-        },
-        {
-          value: "5",
-          label: "인문"
-        },
-        {
-          value: "6",
-          label: "역사/문화"
-        },
-        {
-          value: "7",
-          label: "예술/대중문화"
-        },
-        {
-          value: "8",
-          label: "사회"
-        },
-        {
-          value: "9",
-          label: "과학/공학"
-        },
-        {
-          value: "10",
-          label: "종교"
-        },
-        {
-          value: "11",
-          label: "가정/생활/요리"
-        },
-        {
-          value: "12",
-          label: "국어/외국어"
-        },
-        {
-          value: "13",
-          label: "컴퓨터/IT"
-        }
-      ],
+      genres: [],
       frequent: [
         {
           value: 0,
@@ -222,10 +170,26 @@ export default {
   },
   methods: {
     init() {
+      this.getGenres();
       if (this.userUID) {
         this.getGoalInfo(this.userUID);
       } else {
         // TODO: 유저 정보 없을 경우 redirection 처리 Book.vue 참고
+      }
+    },
+    async getGenres() {
+      try {
+        const genres = await commonCodeRef.doc("genres").get();
+
+        if (genres.exists) {
+          this.genres.push(Object.values(genres.data()));
+          this.genres = this.genres[0];
+        } else {
+          this.$message.error("No such data!");
+        }
+      } catch (err) {
+        this.$message.error(`Oops! ${err}`);
+        console.log(err);
       }
     },
     async getGoalInfo(userUID) {

@@ -36,7 +36,7 @@
             <label for="writer" class="form__label">Writer</label>
           </div>
           <div class="form__group-second-item">
-            <input
+            <!-- <input
               type="input"
               class="form__field"
               placeholder="genre"
@@ -44,8 +44,23 @@
               id="genre"
               required
               v-model="cardForm.genre"
+              
+            /> -->
+            <select
+              class="form__field select-genre"
+              v-model="cardForm.genre"
+              placeholder="genre"
+              name="genre"
+              id="genre"
               :readonly="data ? !isCardEditable : false"
-            />
+            >
+              <option
+                v-for="(genre, index) in genres"
+                :key="index"
+                :label="genre"
+                :value="genre"
+              />
+            </select>
             <label for="genre" class="form__label">Genre</label>
           </div>
         </div>
@@ -114,6 +129,7 @@
 <script>
 import { bookRecordRef } from "@/firebase";
 import { parseTime } from "@/utils/index";
+import { commonCodeRef } from "@/firebase";
 import { mapGetters } from "vuex";
 import mixinAutoResize from "@/mixins/autoResize.js";
 
@@ -122,6 +138,7 @@ export default {
   mixins: [mixinAutoResize],
   data() {
     return {
+      genres: [],
       cardForm: {
         title: "",
         writer: "",
@@ -165,12 +182,25 @@ export default {
   created() {
     this.init();
   },
-  mounted() {
-    this.el = this.$el;
-  },
   methods: {
     init() {
+      this.getGenres();
       Object.assign(this.cardForm, this.data);
+    },
+    async getGenres() {
+      try {
+        const genres = await commonCodeRef.doc("genres").get();
+
+        if (genres.exists) {
+          this.genres.push(Object.values(genres.data()));
+          this.genres = this.genres[0];
+        } else {
+          this.$message.error("No such data!");
+        }
+      } catch (err) {
+        this.$message.error(`Oops! ${err}`);
+        console.log(err);
+      }
     },
     toggleCardEdit() {
       this.isCardEditable = !this.isCardEditable;

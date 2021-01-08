@@ -23,6 +23,7 @@ export const storageService = firebase.storage();
 
 export const dbService = firebase.firestore();
 export const bookRecordRef = dbService.collection("bookRecord");
+export const commonCodeRef = dbService.collection("commonCode");
 
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("getUser", user);
