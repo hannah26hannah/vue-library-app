@@ -114,7 +114,6 @@
 <script>
 import { bookRecordRef } from "@/firebase";
 import { commonCodeRef } from "@/firebase";
-import { parseTime } from "@/utils/index";
 import { mapGetters } from "vuex";
 import mixinAutoResize from "@/mixins/autoResize.js";
 
@@ -202,7 +201,7 @@ export default {
       if (this.data) {
         console.log("this.userUID", this.userUID);
         try {
-          this.cardForm.modified = parseTime(new Date(Date.now()));
+          this.cardForm.modified = new Date(Date.now());
           await bookRecordRef
             .doc(`${this.userUID}`)
             .collection("bookInfo")
@@ -215,7 +214,7 @@ export default {
         }
       } else {
         try {
-          this.cardForm.created = parseTime(new Date(Date.now()));
+          this.cardForm.created = new Date(Date.now());
           await bookRecordRef
             .doc(`${this.userUID}`)
             .collection("bookInfo")

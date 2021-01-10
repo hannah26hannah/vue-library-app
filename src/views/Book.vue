@@ -17,6 +17,7 @@
         @handle-toggle="toggleSideBar()"
         @send-searchParam="setSearchForm"
         @handle-init="init()"
+        :isNoData="this.isNoData"
       />
     </el-menu>
 
@@ -37,7 +38,7 @@
               placement="top"
               effect="light"
             >
-              <el-radio-group v-model="reverse">
+              <el-radio-group v-model="reverse" :disabled="isNoData">
                 <el-radio :label="true">Latest</el-radio>
                 <el-radio :label="false">Oldest</el-radio>
               </el-radio-group>
@@ -85,6 +86,7 @@ import searcher from "@/components/slices/Searcher.vue";
 import { mapGetters } from "vuex";
 import { bookRecordRef } from "@/firebase";
 import { isEmpty } from "@/utils/helper";
+// import { parseTime } from "@/utils/index";
 
 export default {
   name: "Book",
@@ -139,6 +141,7 @@ export default {
         .get();
       bookRecord.forEach(doc => {
         const records = { ...doc.data(), id: doc.id };
+        // records.created = parseTime(records.created);
         this.bookList.push(records);
       });
       const size = this.bookList.length;

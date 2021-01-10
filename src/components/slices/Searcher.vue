@@ -2,7 +2,7 @@
   <section class="searcher">
     <div class="search-bar">
       <el-input
-        placeholder="Type anythong to search for"
+        placeholder="Type title, author, keywords.."
         prefix-icon="el-icon-search"
         v-model="searchForm.keyword"
       >
@@ -73,6 +73,7 @@
 import { commonCodeRef } from "@/firebase";
 
 export default {
+  props: ["isNoData"],
   data() {
     return {
       searchForm: {
@@ -82,7 +83,8 @@ export default {
         month: "",
         searchDate: []
       },
-      genres: []
+      genres: [],
+      isNoReview: false
     };
   },
   created() {
@@ -91,6 +93,7 @@ export default {
   methods: {
     init() {
       this.getGenres();
+      this.isNoReview = this.isNoData;
     },
     async getGenres() {
       try {
@@ -108,10 +111,15 @@ export default {
       }
     },
     onSubmit() {
-      console.log("this.searchForm", this.searchForm);
-      this.$emit("send-searchParam", this.searchForm);
-      this.$emit("handle-toggle");
-      this.$emit("handle-init");
+      if (this.isNoReview) {
+        this.$message.warning("There is no review to search");
+        this.$emit("handle-toggle");
+      } else {
+        console.log("this.searchForm", this.searchForm);
+        this.$emit("send-searchParam", this.searchForm);
+        this.$emit("handle-toggle");
+        this.$emit("handle-init");
+      }
     },
     onReset() {
       this.searchForm = {};
