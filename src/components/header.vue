@@ -8,36 +8,45 @@
     text-color="#37447E"
     active-text-color="#B33771"
   >
-    <el-menu-item index="1">
-      <router-link to="/">Home</router-link>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <router-link to="/challenge">Challenge</router-link>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <router-link to="/book">Book</router-link>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <router-link to="/timeline">Timeline</router-link>
-    </el-menu-item>
-    <router-link to="/login" v-if="isLoginShow">
-      <el-menu-item index="5">
-        <font-awesome-icon class="mr10" icon="sign-in-alt" />Login
-      </el-menu-item></router-link
-    >
-    <el-submenu index="6" v-else>
-      <template slot="title">My Library</template>
-      <router-link to="/myPage" style="text-decoration: none;">
-        <el-menu-item index="6-1">
-          <font-awesome-icon class="mr10" icon="user-cog" />My
-          Page</el-menu-item
-        >
-      </router-link>
-      <el-menu-item index="6-2" @click="logout"
-        ><font-awesome-icon icon="sign-out-alt" class="mr10" />
-        Logout</el-menu-item
+    <div class="logo-container">
+      <el-menu-item index="1" class="logo-li">
+        <router-link to="/" class="logo-container"
+          ><img
+            class="logo"
+            src="@/assets/img/logo.png"
+            alt="weekly reading logo"
+        /></router-link>
+      </el-menu-item>
+    </div>
+    <div class="gnb">
+      <el-menu-item index="2">
+        <router-link to="/challenge">Challenge</router-link>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <router-link to="/book">Book</router-link>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <router-link to="/timeline">Timeline</router-link>
+      </el-menu-item>
+      <router-link to="/login" v-if="isLoginShow">
+        <el-menu-item index="5">
+          <font-awesome-icon class="mr10" icon="sign-in-alt" />Login
+        </el-menu-item></router-link
       >
-    </el-submenu>
+      <el-submenu index="6" v-else>
+        <template slot="title">My Library</template>
+        <router-link to="/myPage" style="text-decoration: none;">
+          <el-menu-item index="6-1" class="my-li">
+            <font-awesome-icon class="mr10" icon="user-cog" />My
+            Page</el-menu-item
+          >
+        </router-link>
+        <el-menu-item index="6-2" @click="logout" class="my-li"
+          ><font-awesome-icon icon="sign-out-alt" class="mr10" />
+          Logout</el-menu-item
+        >
+      </el-submenu>
+    </div>
   </el-menu>
 </template>
 

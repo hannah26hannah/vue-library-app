@@ -6,11 +6,26 @@
 
 .header-container {
   display: flex;
-  justify-content: flex-end;
+  font-size: 1.1rem;
+  
+  .logo-container, .gnb {
+    flex: none;
+  }
+  .gnb {
+    margin-left: auto;
+    display: flex;
+  }
+  .logo {
+    width: auto;
+    height: 2rem;
+  }
   a, 
   .router-link-exact-active .router-link-active,
   .sub-link {
     text-decoration: none;
+  }
+  li.el-menu-item.is-active:not(.logo-li):not(.my-li) {
+    border-bottom: 2px solid rgb(179, 55, 113);
   }
 }
 
