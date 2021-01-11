@@ -21,3 +21,25 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+#firebase-tools 
+/coverage
+/.coverage
+/.nyc_output
+firebase-debug.log
+firebase-debug.*.log
+**/.firebaserc
+
+yarn.lock
+.npmrc
+
+*.iml
+*.tgz
+scripts/*.json
+
+lib/
+dev/
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
