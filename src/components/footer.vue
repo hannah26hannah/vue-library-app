@@ -6,7 +6,7 @@
           <img class="logo" src="@/assets/img/logo.png" alt="週間讀書" />
         </router-link>
       </li>
-      <li>@2021 週間讀書</li>
+      <li>&copy; {{ new Date().getFullYear() }} 週間讀書</li>
     </ul>
     <section class="site-detail">
       <ul>
