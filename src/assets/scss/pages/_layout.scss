@@ -15,10 +15,6 @@
     margin-left: auto;
     display: flex;
   }
-  .logo {
-    width: auto;
-    height: 2rem;
-  }
   a, 
   .router-link-exact-active .router-link-active,
   .sub-link {
@@ -32,6 +28,10 @@
 // ---------------------------------------------------------------
 // Component Layout
 // ---------------------------------------------------------------
+.logo {
+  width: auto;
+  height: 2rem;
+}
 .btnBoxRight {
   display: flex;
   flex-direction: row;
@@ -45,9 +45,13 @@
   text-align: center;
   color: #2c3e50;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .router-section {
     padding: 20px;
+    height: 100%;
   }
 // ---------------------------------------------------------------
 // scroll-up button
@@ -77,6 +81,63 @@
       content: "▲";
     }
 
+  }
+
+  // ---------------------------------------------------------------
+  // Header container
+  // ---------------------------------------------------------------
+
+  .el-footer {
+    background-color: $bar-background;
+    height: 200px !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 130px;
+    margin-top: auto;
+    bottom: 0;
+
+    ul {
+      list-style: none;
+    }
+    .company-desc {
+      width: 100%;
+      height: 50%;
+      border-bottom: 1px solid $bar-detail;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      li:last-child {
+        color: $bar-detail;
+      }
+    }
+    .site-detail {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      ul {
+        display: flex;
+        flex-direction: row;
+        width: 30%;
+        height: 100%;
+        justify-content: space-between;
+        a, 
+        .router-link-exact-active .router-link-active,
+        .sub-link {
+          text-decoration: none;
+        }
+        color: $form-primary-light;
+      }
+      ul:last-child {
+        justify-content: flex-end;
+        color: $bar-detail;
+        justify-content: space-between;
+      }
+    }
   }
 }
 

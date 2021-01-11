@@ -74,15 +74,16 @@
   .header-container .gnb {
     margin-left: auto;
     display: flex; }
-  .header-container .logo {
-    width: auto;
-    height: 2rem; }
   .header-container a,
   .header-container .router-link-exact-active .router-link-active,
   .header-container .sub-link {
     text-decoration: none; }
   .header-container li.el-menu-item.is-active:not(.logo-li):not(.my-li) {
     border-bottom: 2px solid #b33771; }
+
+.logo {
+  width: auto;
+  height: 2rem; }
 
 .btnBoxRight {
   display: flex;
@@ -95,9 +96,13 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  position: relative; }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%; }
   #app .router-section {
-    padding: 20px; }
+    padding: 20px;
+    height: 100%; }
   #app .vue-scroll-up {
     width: 40px;
     height: 40px;
@@ -119,6 +124,47 @@
     outline: none; }
     #app .vue-scroll-up::after {
       content: "▲"; }
+  #app .el-footer {
+    background-color: #FBFBFD;
+    height: 200px !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 130px;
+    margin-top: auto;
+    bottom: 0; }
+    #app .el-footer ul {
+      list-style: none; }
+    #app .el-footer .company-desc {
+      width: 100%;
+      height: 50%;
+      border-bottom: 1px solid #939EA4;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between; }
+      #app .el-footer .company-desc li:last-child {
+        color: #939EA4; }
+    #app .el-footer .site-detail {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between; }
+      #app .el-footer .site-detail ul {
+        display: flex;
+        flex-direction: row;
+        width: 30%;
+        height: 100%;
+        justify-content: space-between;
+        color: #929ECC; }
+        #app .el-footer .site-detail ul a,
+        #app .el-footer .site-detail ul .router-link-exact-active .router-link-active,
+        #app .el-footer .site-detail ul .sub-link {
+          text-decoration: none; }
+      #app .el-footer .site-detail ul:last-child {
+        justify-content: flex-end;
+        color: #939EA4;
+        justify-content: space-between; }
 
 .home {
   padding: 20px; }
