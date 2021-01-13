@@ -135,18 +135,22 @@ export default {
       this.searchParam = param;
     },
     async getBookRecord(userUID) {
-      const bookRecord = await bookRecordRef
-        .doc(`${userUID}`)
-        .collection("bookInfo")
-        .get();
-      bookRecord.forEach(doc => {
-        const records = { ...doc.data(), id: doc.id };
-        // records.created = parseTime(records.created);
-        this.bookList.push(records);
-      });
-      const size = this.bookList.length;
-      if (size === 0) {
-        this.isNoData = true;
+      try {
+        const bookRecord = await bookRecordRef
+          .doc(`${userUID}`)
+          .collection("bookInfo")
+          .get();
+        bookRecord.forEach(doc => {
+          const records = { ...doc.data(), id: doc.id };
+          // records.created = parseTime(records.created);
+          this.bookList.push(records);
+        });
+        const size = this.bookList.length;
+        if (size === 0) {
+          this.isNoData = true;
+        }
+      } catch (err) {
+        console.log(`getBookRecord:: err ${err}`);
       }
     },
     async getSearchRecord(userUID, query) {
