@@ -3,7 +3,7 @@
     <ul class="company-desc">
       <li>
         <router-link to="/">
-          <img class="logo" src="@/assets/img/logo.png" alt="週間讀書" />
+          <logo class="logo" />
         </router-link>
       </li>
       <li>&copy; {{ new Date().getFullYear() }} 週間讀書</li>
@@ -30,7 +30,12 @@
 </template>
 
 <script>
-export default {};
+import logo from "@/components/logo";
+export default {
+  components: {
+    logo
+  }
+};
 </script>
 
 <style></style>

@@ -10,12 +10,9 @@
   >
     <div class="logo-container">
       <el-menu-item index="1" class="logo-li">
-        <router-link to="/" class="logo-container"
-          ><img
-            class="logo"
-            src="@/assets/img/logo.png"
-            alt="weekly reading logo"
-        /></router-link>
+        <router-link to="/" class="logo-container">
+          <logo class="logo" />
+        </router-link>
       </el-menu-item>
     </div>
     <div class="gnb">
@@ -53,7 +50,11 @@
 <script>
 import { authService } from "@/firebase";
 import { mapGetters } from "vuex";
+import logo from "@/components/logo";
 export default {
+  components: {
+    logo
+  },
   data() {
     return {
       activeIndex: "1"
