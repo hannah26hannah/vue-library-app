@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="FixView">
     <!-- sidebar searcher-->
     <el-menu
       default-active="1"

@@ -1,88 +1,90 @@
 @charset "UTF-8";
 
 // ---------------------------------------------------------------
-// My Page
+// My Page & Login
 // ---------------------------------------------------------------
-
+.FixView {
+  // BookPage에도 적용
+  height: 100vh !important;
+}
 .myPage {
-    #userForm {
-        width: 80%;
-        margin: 0 auto;
+  #userForm {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    // profile image section
+    .profileImg {
+      .avatar {
+        width: 200px;
+        height: auto;
+        display: block;
+      }
+      #fileBox {
         display: flex;
-        flex-direction: column;
-
-        // profile image section
-        .profileImg {
-            .avatar {
-                width: 200px;
-                height: auto;
-                display: block;
-            }
-            #fileBox {
-                display: flex;
-                justify-content: flex-end;
-                align-items: flex-end;
-                label {
-                  display: inline-block;
-                  padding: 12px 20px;
-                  font-size: inherit;
-                  line-height: normal;
-                  vertical-align: middle;
-                  cursor: pointer;
-                  border: 1px solid $font-active-primary;
-                  border-radius: 0.25em;
-                  color: #fff;
-                  background-color: $form-primary;
-                }
-                label:hover {
-                  background-color: #9b9b9b;
-                }
-                input[type="file"] {
-                  position: absolute;
-                  width: 1px;
-                  height: 1px;
-                  padding: 0;
-                  margin: -1px;
-                  overflow: hidden;
-                  clip: rect(0, 0, 0, 0);
-                  border: 0;
-                }
-            }
+        justify-content: flex-end;
+        align-items: flex-end;
+        label {
+          display: inline-block;
+          padding: 12px 20px;
+          font-size: inherit;
+          line-height: normal;
+          vertical-align: middle;
+          cursor: pointer;
+          border: 1px solid $font-active-primary;
+          border-radius: 0.25em;
+          color: #fff;
+          background-color: $form-primary;
         }
-
-    }
-
-    .library {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
-      grid-column-gap: 50px;
-      grid-row-gap: 50px;
-      width: 80%;
-      height: auto;
-      margin: 0 auto;
-      margin-top: 20px;
-      .book-container {
-        .comment-alert {
-          margin-top: 10px;
-          margin-right: 40px;
+        label:hover {
+          background-color: #9b9b9b;
+        }
+        input[type="file"] {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0, 0, 0, 0);
+          border: 0;
         }
       }
-      .book {
-          height: 226px;
-          width: 154px;
-          background: $form-primary-light;
-          border: 1px solid #2c3e50;
-          box-sizing: border-box;
-          box-shadow: 2px 7px 1px lightgray;
-          border-radius: 8px;
+    }
+  }
 
-          font-size: 1.7rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: $font-white;
+  .library {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(154px, 1fr));
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+    width: 80%;
+    height: auto;
+    margin: 0 auto;
+    margin-top: 20px;
+    .book-container {
+      .comment-alert {
+        margin-top: 10px;
+        margin-right: 40px;
       }
     }
+    .book {
+      height: 226px;
+      width: 154px;
+      background: $form-primary-light;
+      border: 1px solid #2c3e50;
+      box-sizing: border-box;
+      box-shadow: 2px 7px 1px lightgray;
+      border-radius: 8px;
+
+      font-size: 1.7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $font-white;
+    }
+  }
 }
 
 // ---------------------------------------------------------------

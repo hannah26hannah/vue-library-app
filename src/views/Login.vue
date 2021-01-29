@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section>
+    <section class="FixView">
       <h1>
         <span @click="toggleMode" :class="{ currentStatus: isLoginMode }"
           >Log in</span

@@ -1,4 +1,14 @@
 @charset "UTF-8";
+// ---------------------------------------------------------------
+// Basic
+// ---------------------------------------------------------------
+
+body {
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 // ---------------------------------------------------------------
 // Header container
@@ -7,15 +17,16 @@
 .header-container {
   display: flex;
   font-size: 1.1rem;
-  
-  .logo-container, .gnb {
+
+  .logo-container,
+  .gnb {
     flex: none;
   }
   .gnb {
     margin-left: auto;
     display: flex;
   }
-  a, 
+  a,
   .router-link-exact-active .router-link-active,
   .sub-link {
     text-decoration: none;
@@ -50,12 +61,12 @@
   height: 100%;
 
   .router-section {
-    padding: 20px;
-    height: 100%;
+    height: auto;
+    width: 100%;
   }
-// ---------------------------------------------------------------
-// scroll-up button
-// ---------------------------------------------------------------
+  // ---------------------------------------------------------------
+  // scroll-up button
+  // ---------------------------------------------------------------
   .vue-scroll-up {
     width: 40px;
     height: 40px;
@@ -71,8 +82,8 @@
     border-radius: 50%;
     font-weight: 700;
     font-size: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     margin: 1rem;
     border: none;
     outline: none;
@@ -80,7 +91,6 @@
     &::after {
       content: "▲";
     }
-
   }
 
   // ---------------------------------------------------------------
@@ -90,11 +100,11 @@
   .el-footer {
     background-color: $bar-background;
     height: 200px !important;
+    // margin-top: 200px;
     width: 100%;
     display: flex;
     flex-direction: column;
     padding: 20px 130px;
-    margin-top: auto;
     bottom: 0;
 
     ul {
@@ -125,7 +135,7 @@
         width: 30%;
         height: 100%;
         justify-content: space-between;
-        a, 
+        a,
         .router-link-exact-active .router-link-active,
         .sub-link {
           text-decoration: none;
@@ -140,4 +150,3 @@
     }
   }
 }
-

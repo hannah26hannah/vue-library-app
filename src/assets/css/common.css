@@ -66,10 +66,17 @@
 .mb50 {
   margin-bottom: 50px !important; }
 
+body {
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  box-sizing: border-box; }
+
 .header-container {
   display: flex;
   font-size: 1.1rem; }
-  .header-container .logo-container, .header-container .gnb {
+  .header-container .logo-container,
+  .header-container .gnb {
     flex: none; }
   .header-container .gnb {
     margin-left: auto;
@@ -101,8 +108,8 @@
   flex-direction: column;
   height: 100%; }
   #app .router-section {
-    padding: 20px;
-    height: 100%; }
+    height: auto;
+    width: 100%; }
   #app .vue-scroll-up {
     width: 40px;
     height: 40px;
@@ -131,7 +138,6 @@
     display: flex;
     flex-direction: column;
     padding: 20px 130px;
-    margin-top: auto;
     bottom: 0; }
     #app .el-footer ul {
       list-style: none; }
@@ -192,6 +198,9 @@
         display: flex; }
         .home .homeCard .welcome-container .btn-box button {
           width: 200px; }
+
+.FixView {
+  height: 100vh !important; }
 
 .myPage #userForm {
   width: 80%;
